@@ -1,0 +1,387 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Job Details & Resume | SkillBridge AI</title>
+
+    <link
+        rel="stylesheet"
+        href="css/common.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/job-details.css"
+    >
+
+</head>
+
+<body>
+
+    <!-- Navbar -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            ✦ SkillBridge <span>AI</span>
+        </div>
+
+        <div class="nav-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="index.html#how-it-works">
+                How It Works
+            </a>
+
+            <a href="index.html#about">
+                About
+            </a>
+
+        </div>
+
+        <a
+            href="results.html"
+            class="nav-button"
+        >
+            Back to Jobs →
+        </a>
+
+    </nav>
+
+
+    <!-- Main Page -->
+
+    <main class="job-details-page">
+
+        <!-- Page Header -->
+
+        <section class="job-details-header">
+
+            <div class="section-badge">
+                ✦ PREPARE FOR YOUR NEXT OPPORTUNITY
+            </div>
+
+            <h1>
+                Understand the Role.
+                <span>Bridge the Gap.</span>
+            </h1>
+
+            <p>
+                Review the job description, upload your resume,
+                and discover which skills you need to improve.
+            </p>
+
+        </section>
+
+
+        <!-- Job Description Section -->
+
+        <section class="job-description-section">
+
+            <div class="section-heading">
+
+                <div class="section-badge">
+                    
+                </div>
+
+                <h2>Job Description</h2>
+
+                <p>
+                    Review the selected job's requirements or choose
+                    a role to view a sample job description.
+                </p>
+
+            </div>
+
+
+            <div class="job-description-card">
+
+                <div class="job-role-header">
+
+                    <div>
+
+                        <span class="field-label">
+                            SELECTED JOB ROLE
+                        </span>
+
+                        <h3 id="jobRoleTitle">
+                            Full Stack Developer
+                        </h3>
+
+                    </div>
+
+                    <span
+                        class="description-badge"
+                        id="descriptionType"
+                    >
+                        Sample Description
+                    </span>
+
+                </div>
+
+
+                <div class="role-selector">
+
+                    <label for="jobRoleSelect">
+                        Choose Job Role
+                    </label>
+
+                    <select id="jobRoleSelect">
+
+                        <option value="Python Developer">
+                            Python Developer
+                        </option>
+
+                        <option
+                            value="Full Stack Developer"
+                            selected
+                        >
+                            Full Stack Developer
+                        </option>
+
+                        <option value="Frontend Developer">
+                            Frontend Developer
+                        </option>
+
+                        <option value="Backend Developer">
+                            Backend Developer
+                        </option>
+
+                        <option value="Software Engineer">
+                            Software Engineer
+                        </option>
+
+                        <option value="Data Analyst">
+                            Data Analyst
+                        </option>
+
+                        <option value="AI/ML Engineer">
+                            AI/ML Engineer
+                        </option>
+
+                        <option value="Web Developer">
+                            Web Developer
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="description-content">
+
+                    <h4>About the Role</h4>
+
+                    <p id="jobDescriptionText">
+                        A Full Stack Developer builds and maintains
+                        web applications by working on both frontend
+                        interfaces and backend services.
+                    </p>
+
+
+                    <h4>Key Responsibilities</h4>
+
+                    <ul id="jobResponsibilities">
+
+                        <li>
+                            Develop responsive user interfaces using
+                            HTML, CSS, and JavaScript.
+                        </li>
+
+                        <li>
+                            Build backend applications using Python
+                            and Django.
+                        </li>
+
+                        <li>
+                            Work with databases and REST APIs.
+                        </li>
+
+                        <li>
+                            Test, debug, and maintain web applications.
+                        </li>
+
+                    </ul>
+
+
+                    <h4>Required Skills</h4>
+
+                    <div
+                        class="required-skills"
+                        id="requiredSkills"
+                    >
+
+                        <span>Python</span>
+                        <span>HTML</span>
+                        <span>CSS</span>
+                        <span>JavaScript</span>
+                        <span>Django</span>
+                        <span>SQL</span>
+                        <span>REST APIs</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Resume Upload Section -->
+
+        <section class="resume-section">
+
+            <div class="section-heading">
+
+                <div class="section-badge">
+                   
+                </div>
+
+                <h2>Upload Your Resume</h2>
+
+                <p>
+                    Upload your latest resume so your existing
+                    skills can be compared with the job requirements.
+                </p>
+
+            </div>
+
+
+            <form id="resumeUploadForm">
+
+                <div class="resume-upload-card">
+
+                    <div class="upload-icon">
+                        ↑
+                    </div>
+
+                    <h3>Upload Your Resume</h3>
+
+                    <p>
+                        Choose a PDF or DOCX file from your device.
+                    </p>
+
+                    <label
+                        for="resumeFile"
+                        class="upload-button"
+                    >
+                        Choose Resume
+                    </label>
+
+                    <input
+                        type="file"
+                        id="resumeFile"
+                        name="resumeFile"
+                        accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                        required
+                        hidden
+                    >
+
+                    <p
+                        class="selected-file"
+                        id="selectedFileName"
+                        aria-live="polite"
+                    >
+                        No file selected
+                    </p>
+
+                    <p class="upload-note">
+                        Supported formats: PDF and DOCX
+                    </p>
+
+                </div>
+
+
+                <p
+                    class="form-message"
+                    id="formMessage"
+                    aria-live="polite"
+                ></p>
+
+
+                <button
+                    type="submit"
+                    class="primary-button analyze-button"
+                    id="analyzeResumeButton"
+                >
+                    Analyze My Skill Gap →
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- Future Analysis Information -->
+
+        <section class="analysis-info">
+
+            <h3>What You'll Discover</h3>
+
+            <div class="analysis-info-grid">
+
+                <div class="analysis-info-card">
+
+                    <span>✓</span>
+
+                    <h4>Matched Skills</h4>
+
+                    <p>
+                        Identify skills you already have.
+                    </p>
+
+                </div>
+
+
+                <div class="analysis-info-card">
+
+                    <span>↗</span>
+
+                    <h4>Skill Gaps</h4>
+
+                    <p>
+                        Find skills you need to develop.
+                    </p>
+
+                </div>
+
+
+                <div class="analysis-info-card">
+
+                    <span>✦</span>
+
+                    <h4>Recommended Courses</h4>
+
+                    <p>
+                        Discover courses based on your skill gaps.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="js/common.js"></script>
+
+    <script src="js/job-details.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,461 @@
+
+/* =========================
+   RESULTS PAGE
+========================= */
+
+.results-page {
+    min-height: calc(100vh - 75px);
+    padding: 70px 7% 100px;
+}
+
+
+/* =========================
+   RESULTS HEADER
+========================= */
+
+.results-header {
+    max-width: 800px;
+    margin: 0 auto 50px;
+    text-align: center;
+}
+
+.results-header h1 {
+    font-size: 48px;
+    line-height: 1.15;
+    margin: 15px 0 18px;
+}
+
+.results-header h1 span {
+    background: linear-gradient(90deg, #6366f1, #a855f7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.results-header p {
+    color: #9298b0;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+
+/* =========================
+   JOB SEARCH SUMMARY
+========================= */
+
+.job-search-summary {
+    max-width: 1100px;
+    margin: 0 auto 70px;
+    padding: 28px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 25px;
+
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+}
+
+.job-search-summary > div {
+    min-width: 0;
+}
+
+.job-search-summary span {
+    display: block;
+    color: #858ba3;
+    font-size: 12px;
+    margin-bottom: 9px;
+}
+
+.job-search-summary h2,
+.job-search-summary p {
+    color: #e2e4f0;
+    font-size: 14px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.job-search-summary h2 {
+    font-weight: 600;
+}
+
+
+/* =========================
+   SECTION TITLES
+========================= */
+/* Center the Matching Jobs section heading */
+
+.jobs-section .section-title {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.jobs-section .section-title h2 {
+    margin-top: 12px;
+}
+
+.jobs-section .section-title p {
+    max-width: 550px;
+    margin: 12px auto 0;
+    line-height: 1.8;
+}
+
+/* =========================
+   JOB CARDS GRID
+========================= */
+
+.jobs-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+}
+
+
+/* =========================
+   JOB CARD
+========================= */
+
+.job-card {
+    min-width: 0;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.job-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(139, 92, 246, 0.4);
+    box-shadow: 0 15px 35px rgba(99, 102, 241, 0.1);
+}
+
+
+/* =========================
+   JOB CARD TOP
+========================= */
+
+.job-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 22px;
+}
+
+.job-type,
+.job-platform {
+    display: inline-block;
+    padding: 7px 10px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 500;
+}
+
+.job-type {
+    color: #c4b5fd;
+    background: rgba(139, 92, 246, 0.12);
+    border: 1px solid rgba(139, 92, 246, 0.12);
+}
+
+.job-platform {
+    color: #9ca3bd;
+    background: rgba(255, 255, 255, 0.045);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+
+/* =========================
+   JOB INFORMATION
+========================= */
+
+.job-card h3 {
+    color: #f1f2fa;
+    font-size: 21px;
+    line-height: 1.4;
+    margin-bottom: 9px;
+}
+
+.company-name {
+    color: #a78bfa;
+    font-size: 13px;
+    margin-bottom: 18px;
+}
+
+.job-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.job-meta span {
+    color: #9298b0;
+    font-size: 12px;
+}
+
+.job-description {
+    color: #9298b0;
+    font-size: 13px;
+    line-height: 1.8;
+    margin-bottom: 22px;
+}
+
+
+/* =========================
+   JOB SKILL TAGS
+========================= */
+
+.job-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-bottom: 25px;
+}
+
+.job-skills span {
+    padding: 7px 10px;
+    border-radius: 6px;
+
+    color: #c5c8db;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+
+    font-size: 11px;
+}
+
+
+/* =========================
+   JOB CARD BUTTONS
+========================= */
+
+.job-card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.job-card-actions button {
+    flex: 1 1 150px;
+    min-height: 44px;
+    padding: 11px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 500;
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.job-card-actions .primary-button {
+    color: #ffffff;
+    background: linear-gradient(90deg, #6366f1, #8b5cf6);
+    border: 1px solid transparent;
+}
+
+.job-card-actions .primary-button:hover {
+    background: linear-gradient(90deg, #5558e8, #7c3aed);
+    transform: translateY(-2px);
+}
+
+.job-card-actions .secondary-button {
+    color: #c4b5fd;
+    background: rgba(139, 92, 246, 0.07);
+    border: 1px solid rgba(139, 92, 246, 0.25);
+}
+
+.job-card-actions .secondary-button:hover {
+    background: rgba(139, 92, 246, 0.15);
+    border-color: rgba(139, 92, 246, 0.5);
+}
+
+
+/* =========================
+   NO JOBS MESSAGE
+========================= */
+
+.no-jobs-message {
+    max-width: 650px;
+    margin: 50px auto;
+    padding: 45px 25px;
+    text-align: center;
+
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+}
+
+.no-jobs-message h2 {
+    font-size: 24px;
+    margin-bottom: 12px;
+}
+
+.no-jobs-message p {
+    color: #9298b0;
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 24px;
+}
+
+.no-jobs-message[hidden] {
+    display: none;
+}
+
+
+/* =========================
+   RESULTS CTA
+========================= */
+
+.results-cta {
+    max-width: 850px;
+    margin: 100px auto 0;
+    padding: 65px 30px;
+    text-align: center;
+    border-radius: 20px;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(99, 102, 241, 0.15),
+            rgba(8, 11, 26, 0.9) 65%
+        );
+
+    border: 1px solid rgba(139, 92, 246, 0.18);
+}
+
+.results-cta h2 {
+    font-size: 30px;
+    margin-bottom: 12px;
+}
+
+.results-cta p {
+    color: #858ba3;
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 28px;
+}
+
+
+/* =========================
+   RESPONSIVE: TABLETS
+========================= */
+
+@media (max-width: 1000px) {
+
+    .job-search-summary {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .jobs-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .job-card {
+        max-width: 750px;
+        width: 100%;
+        margin: 0 auto;
+    }
+}
+
+
+/* =========================
+   RESPONSIVE: MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    .results-page {
+        padding: 50px 5% 70px;
+    }
+
+    .results-header {
+        margin-bottom: 35px;
+    }
+
+    .results-header h1 {
+        font-size: 35px;
+    }
+
+    .results-header p {
+        font-size: 14px;
+    }
+
+    .job-search-summary {
+        padding: 22px;
+        gap: 22px 15px;
+        margin-bottom: 55px;
+    }
+
+    .job-search-summary h2,
+    .job-search-summary p {
+        font-size: 13px;
+    }
+
+    .section-title h2 {
+        font-size: 25px;
+    }
+
+    .job-card {
+        padding: 22px;
+    }
+
+    .job-card h3 {
+        font-size: 19px;
+    }
+
+    .job-card-actions {
+        flex-direction: column;
+    }
+
+    .job-card-actions button {
+        width: 100%;
+        flex-basis: auto;
+    }
+
+    .results-cta {
+        margin-top: 70px;
+        padding: 45px 20px;
+    }
+
+    .results-cta h2 {
+        font-size: 25px;
+    }
+}
+
+
+/* Common buttons below all job cards */
+.common-job-actions {
+    justify-content: center;
+    border-top: none;
+}
+
+.common-job-actions button {
+    flex: 0 0 220px;
+    max-width: 220px;
+}
+
+/* Mobile screens */
+@media (max-width: 600px) {
+    .common-job-actions button {
+        flex: 0 1 220px;
+        width: 100%;
+        max-width: 220px;
+    }
+}
+
+

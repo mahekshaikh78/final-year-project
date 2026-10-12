@@ -1,0 +1,371 @@
+/* ===== Analyze Page ===== */
+
+.analyze-page {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 40px 24px 60px;
+}
+
+/* Hero heading */
+.analyze-heading {
+    position: relative;
+    isolation: isolate;
+    max-width: 800px;
+    margin: 0 auto 38px;
+    padding: 20px 24px 0;
+    text-align: center;
+}
+
+.analyze-heading::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 50%;
+    width: 420px;
+    height: 240px;
+    transform: translateX(-50%);
+    background: radial-gradient(
+        ellipse,
+        rgba(139, 92, 246, 0.18),
+        rgba(99, 102, 241, 0.06) 48%,
+        transparent 72%
+    );
+    filter: blur(24px);
+    pointer-events: none;
+}
+
+.analyze-heading .section-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 16px;
+    margin-bottom: 24px;
+    border: 1px solid rgba(167, 139, 250, 0.35);
+    border-radius: 50px;
+    background: rgba(139, 92, 246, 0.10);
+    color: #c4b5fd;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.analyze-heading h1 {
+    max-width: 700px;
+    margin: 0 auto;
+    color: #f8fafc;
+    font-size: clamp(32px, 4vw, 56px);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -1.5px;
+    text-wrap: balance;
+}
+
+.analyze-heading h1 span {
+    display: inline-block;
+    background: linear-gradient(100deg, #c4b5fd, #a78bfa, #818cf8);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.analyze-heading > p {
+    max-width: 620px;
+    margin: 20px auto 0;
+    color: #a8b3c7;
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+.analyze-heading > p::after {
+    content: "";
+    display: block;
+    width: 56px;
+    height: 3px;
+    margin: 24px auto 0;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #8b5cf6, #6366f1);
+}
+
+/* Preferences card */
+.analysis-container {
+    display: block;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.analysis-container .input-card {
+    width: 100%;
+    max-width: none;
+    box-sizing: border-box;
+    padding: 32px;
+    border: 1px solid rgba(167, 139, 250, 0.18);
+    border-radius: 20px;
+    background: linear-gradient(145deg, #151b2b, #101522);
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.22);
+}
+
+/* Centered card title */
+.analysis-container .input-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-bottom: 28px;
+    text-align: center;
+}
+
+.analysis-container .input-card-header h2 {
+    margin: 0 0 8px;
+    color: #f8fafc;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.analysis-container .input-card-header p {
+    margin: 0;
+    color: #a6b0c3;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Two-column preferences form */
+#jobPreferencesForm {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    width: 100%;
+    margin: 0;
+    align-items: start;
+}
+
+#jobPreferencesForm .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+}
+
+#jobPreferencesForm .form-group:nth-of-type(1) {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+#jobPreferencesForm .form-group:nth-of-type(2) {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+#jobPreferencesForm .form-group:nth-of-type(3) {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+#jobPreferencesForm .form-group:nth-of-type(4) {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+/* Labels */
+#jobPreferencesForm .form-group label {
+    color: #e2e8f0;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+/* Dropdowns and skills field */
+#jobPreferencesForm .form-group select,
+#jobPreferencesForm .form-group textarea {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    min-height: 52px;
+    box-sizing: border-box;
+    padding: 13px 15px;
+    border: 1px solid #30394e;
+    border-radius: 11px;
+    background: #0c1220;
+    color: #f1f5f9;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.5;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#jobPreferencesForm .form-group textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+#jobPreferencesForm .form-group select option {
+    background: #111827;
+    color: #f1f5f9;
+}
+
+#jobPreferencesForm .form-group textarea::placeholder {
+    color: #8491a5;
+}
+
+#jobPreferencesForm .form-group small {
+    color: #9ca3af;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+#jobPreferencesForm .form-group select:hover,
+#jobPreferencesForm .form-group textarea:hover {
+    border-color: #62538e;
+}
+
+#jobPreferencesForm .form-group select:focus,
+#jobPreferencesForm .form-group textarea:focus {
+    border-color: #a78bfa;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.14);
+}
+
+/* Primary action */
+#jobPreferencesForm #fetchJobsButton {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    width: 100%;
+    min-height: 54px;
+    box-sizing: border-box;
+    margin: 4px 0 0;
+    padding: 15px 22px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(109, 40, 217, 0.22);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#jobPreferencesForm #fetchJobsButton:hover {
+    background: linear-gradient(135deg, #9b6bff, #7c3aed);
+    box-shadow: 0 8px 22px rgba(109, 40, 217, 0.32);
+    transform: translateY(-1px);
+}
+
+#jobPreferencesForm #fetchJobsButton:focus-visible {
+    outline: 2px solid #c4b5fd;
+    outline-offset: 3px;
+}
+
+/* Supporting message */
+.analyze-action {
+    max-width: 900px;
+    margin: 22px auto 0;
+    text-align: center;
+}
+
+.analyze-action p {
+    color: #9ca3af;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* Mobile layout */
+@media (max-width: 600px) {
+    .analyze-page {
+        padding: 28px 16px 40px;
+    }
+
+    .analyze-heading {
+        padding: 28px 8px 0;
+        margin-bottom: 28px;
+    }
+
+    .analyze-heading h1 {
+        font-size: clamp(32px, 8vw, 44px);
+        letter-spacing: -1px;
+    }
+
+    .analyze-heading > p {
+        font-size: 14px;
+    }
+
+    .analysis-container .input-card {
+        padding: 24px 18px;
+        border-radius: 16px;
+    }
+
+    .analysis-container .input-card-header h2 {
+        font-size: 21px;
+    }
+
+    #jobPreferencesForm {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 20px;
+    }
+
+    #jobPreferencesForm .form-group:nth-of-type(1),
+    #jobPreferencesForm .form-group:nth-of-type(2),
+    #jobPreferencesForm .form-group:nth-of-type(3),
+    #jobPreferencesForm .form-group:nth-of-type(4) {
+        grid-column: 1;
+        grid-row: auto;
+    }
+
+    #jobPreferencesForm #fetchJobsButton {
+        grid-column: 1;
+        grid-row: auto;
+    }
+}
+
+/* Job Preferences card — soft purple-blue glow */
+.analysis-container .input-card {
+    background: linear-gradient(
+        145deg,
+        rgba(13, 23, 48, 0.96),
+        rgba(8, 16, 34, 0.98)
+    );
+    border: 1px solid rgba(88, 93, 255, 0.65);
+    border-radius: 24px;
+
+    /* Layered shadow matching the reference image */
+    box-shadow:
+        0 0 0 1px rgba(93, 76, 255, 0.12),
+        0 0 28px rgba(72, 65, 255, 0.12),
+        0 18px 45px rgba(0, 0, 0, 0.35),
+        0 0 65px rgba(89, 64, 255, 0.08);
+
+    padding: 32px;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+/* Slightly stronger glow when hovering over the card */
+.analysis-container .input-card:hover {
+    border-color: rgba(112, 101, 255, 0.85);
+    box-shadow:
+        0 0 0 1px rgba(93, 76, 255, 0.18),
+        0 0 35px rgba(72, 65, 255, 0.18),
+        0 22px 50px rgba(0, 0, 0, 0.4),
+        0 0 75px rgba(89, 64, 255, 0.12);
+}
+
+/* Keep the card comfortable on smaller screens */
+@media (max-width: 600px) {
+    .analysis-container .input-card {
+        padding: 22px 18px;
+        border-radius: 18px;
+    }
+}
+/* Position the new Job Platform dropdown */
+#jobPreferencesForm .form-group:nth-of-type(5) {
+    grid-column: 1 / -1;
+    grid-row: auto;
+}
+
+/* Keep the submit button on its own full-width row */
+#jobPreferencesForm .primary-button {
+    grid-column: 1 / -1;
+}

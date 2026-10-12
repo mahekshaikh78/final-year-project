@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Analyze | SkillBridge AI</title>
+
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/analyze.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+
+        <div class="logo">
+            ✦ SkillBridge <span>AI</span>
+        </div>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="index.html#how-it-works">How It Works</a>
+            <a href="index.html#about">About</a>
+        </div>
+
+        <a href="index.html" class="nav-button">
+            ← Back Home
+        </a>
+
+    </nav>
+
+    <!-- Analyze Section -->
+    <main class="analyze-page">
+
+        <div class="analyze-heading">
+
+            <div class="section-badge">
+                ✦ AI CAREER MATCHING
+            </div>
+
+            <h1>
+                Find Your
+                <span>Perfect Job.</span>
+            </h1>
+
+            <p>
+                Tell us what kind of job you're looking for.
+                SkillBridge AI will help you discover relevant
+                opportunities and identify the skills you need.
+            </p>
+
+        </div>
+
+        <!-- Job Preferences -->
+        <div class="analysis-container">
+
+            <div class="input-card">
+
+                <div class="input-card-header">
+
+                    <!-- <div class="input-icon"></div> -->
+
+                    <div>
+                        <h2>Job Preferences</h2>
+                        <p>Select the type of opportunity you're targeting.</p>
+                    </div>
+
+                </div>
+
+                <form id="jobPreferencesForm">
+
+                    <!-- Job Role -->
+                    <div class="form-group">
+                        <label for="jobRole">Preferred Job Role</label>
+
+                        <select id="jobRole" name="jobRole" required>
+                            <option value="">Select a job role</option>
+                            <option value="Python Developer">Python Developer</option>
+                            <option value="Full Stack Developer">Full Stack Developer</option>
+                            <option value="Frontend Developer">Frontend Developer</option>
+                            <option value="Backend Developer">Backend Developer</option>
+                            <option value="Software Engineer">Software Engineer</option>
+                            <option value="Data Analyst">Data Analyst</option>
+                            <option value="AI ML Engineer">AI/ML Engineer</option>
+                            <option value="Web Developer">Web Developer</option>
+                        </select>
+                    </div>
+                      <!-- Job Platform -->
+                    <div class="form-group">
+                        <label for="jobPlatform">Preferred Job Platform</label>
+
+                        <select id="jobPlatform" name="jobPlatform" required>
+                            <option value="">Select a job platform</option>
+                            <option value="LinkedIn">LinkedIn</option>
+                            <option value="Naukri">Naukri.com</option>
+                            <option value="Indeed">Indeed</option>
+                            <option value="Foundit">Foundit</option>
+                            <option value="Internshala">Internshala</option>
+                            <option value="Any Platform">Any Platform</option>
+                        </select>
+                    </div>
+                    <!-- Location -->
+                    <div class="form-group">
+                        <label for="jobLocation">Preferred Location</label>
+
+                        <select id="jobLocation" name="jobLocation" required>
+                            <option value="">Select a location</option>
+                            <option value="Pune">Pune</option>
+                            <option value="Mumbai">Mumbai</option>
+                            <option value="Bengaluru">Bengaluru</option>
+                            <option value="Hyderabad">Hyderabad</option>
+                            <option value="Chennai">Chennai</option>
+                            <option value="Delhi NCR">Delhi NCR</option>
+                            <option value="Remote">Remote</option>
+                            <option value="Any Location">Any Location</option>
+                        </select>
+                    </div>
+                   
+                    <!-- Experience Level -->
+                    <div class="form-group">
+                        <label for="experienceLevel">Experience Level</label>
+
+                        <select id="experienceLevel" name="experienceLevel" required>
+                            <option value="">Select experience level</option>
+                            <option value="Internship">Internship</option>
+                            <option value="Fresher">Fresher</option>
+                            <option value="Entry Level">Entry Level</option>
+                            <option value="Experienced">Experienced</option>
+                        </select>
+                    </div>
+
+                   <!-- Skills -->
+                    <div class="form-group">
+                        <label for="preferredSkills">Preferred Skills</label>
+
+                        <textarea
+                            id="preferredSkills"
+                            name="preferredSkills"
+                            placeholder="Example: Python, Django, SQL, HTML, CSS"
+                            maxlength="500"
+                            required
+                        ></textarea>
+
+                        <small>
+                            Separate skills with commas.
+                        </small>
+                    </div>
+
+                                        <!-- Job Platform
+                    <div class="form-group">
+                        <label for="jobPlatform">Preferred Job Platform</label>
+
+                        <select id="jobPlatform" name="jobPlatform" required>
+                            <option value="">Select a job platform</option>
+                            <option value="LinkedIn">LinkedIn</option>
+                            <option value="Naukri">Naukri.com</option>
+                            <option value="Indeed">Indeed</option>
+                            <option value="Foundit">Foundit</option>
+                            <option value="Internshala">Internshala</option>
+                            <option value="Any Platform">Any Platform</option>
+                        </select>
+                    </div> -->
+
+                    <button
+                        type="submit"
+                        class="primary-button"
+                        id="fetchJobsButton"
+                    >
+                        Find Matching Jobs →
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+        <div class="analyze-action">
+            <p>
+                ✦ Your preferences help us find more relevant opportunities.
+            </p>
+        </div>
+
+    </main>
+
+    <script src="js/common.js"></script>
+    <script src="js/analyze.js"></script>
+
+</body>
+
+</html>

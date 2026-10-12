@@ -1,0 +1,264 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Matching Jobs | SkillBridge AI</title>
+
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/results.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+
+        <div class="logo">
+            ✦ SkillBridge <span>AI</span>
+        </div>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="index.html#how-it-works">How It Works</a>
+            <a href="index.html#about">About</a>
+        </div>
+
+        <a href="analyze.html" class="nav-button">
+            New Search →
+        </a>
+
+    </nav>
+
+    <!-- Job Results Page -->
+    <main class="results-page">
+
+        <!-- Header -->
+        <section class="results-header">
+
+            <div class="section-badge">
+                ✦ YOUR JOB MATCHES
+            </div>
+
+            <h1>
+                Find Your Next
+                <span>Opportunity.</span>
+            </h1>
+
+            <p>
+                Explore job opportunities that match your career
+                preferences and take the next step toward your goals.
+            </p>
+
+        </section>
+
+        <!-- Search Summary -->
+        <section class="job-search-summary">
+
+            <div>
+                <span>Target Role</span>
+                <h2 id="selectedRole">Full Stack Developer</h2>
+            </div>
+
+            <div>
+                <span>Experience Level</span>
+                <p id="selectedExperience">Fresher</p>
+            </div>
+
+            <div>
+                <span>Preferred Location</span>
+                <p id="selectedLocation">Pune</p>
+            </div>
+
+            <div>
+                <span>Job Platform</span>
+                <p id="selectedPlatform">Any Platform</p>
+            </div>
+
+        </section>
+
+        <!-- Job Listings -->
+        <section class="jobs-section">
+
+            <div class="section-title">
+
+                <div>
+                    
+
+                    <h2>Matching Jobs</h2>
+
+                    <p>
+                        These are sample listings to preview the interface.
+                        Live job search will be connected later.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="jobs-grid">
+
+                <!-- Job Card 1 -->
+                <article class="job-card">
+
+                    <div class="job-card-top">
+                        <span class="job-type">Full Time</span>
+                        <span class="job-platform">LinkedIn</span>
+                    </div>
+
+                    <h3>Junior Python Developer</h3>
+
+                    <p class="company-name">Example Technology Company</p>
+
+                    <div class="job-meta">
+                        <span>📍 Pune</span>
+                        <span>🎓 Fresher</span>
+                    </div>
+
+                    <p class="job-description">
+                        Work with Python, Django, databases, and web
+                        application development.
+                    </p>
+
+                    <div class="job-skills">
+                        <span>Python</span>
+                        <span>Django</span>
+                        <span>SQL</span>
+                    </div>
+
+                   
+
+                </article>
+
+                <!-- Job Card 2 -->
+                <article class="job-card">
+
+                    <div class="job-card-top">
+                        <span class="job-type">Full Time</span>
+                        <span class="job-platform">Naukri</span>
+                    </div>
+
+                    <h3>Graduate Software Developer</h3>
+
+                    <p class="company-name">Example Software Solutions</p>
+
+                    <div class="job-meta">
+                        <span>📍 Bengaluru</span>
+                        <span>🎓 Entry Level</span>
+                    </div>
+
+                    <p class="job-description">
+                        Contribute to software development, debugging,
+                        testing, and database-driven applications.
+                    </p>
+
+                    <div class="job-skills">
+                        <span>Python</span>
+                        <span>JavaScript</span>
+                        <span>MySQL</span>
+                    </div>
+
+                   
+
+                </article>
+
+                <!-- Job Card 3 -->
+                <article class="job-card">
+
+                    <div class="job-card-top">
+                        <span class="job-type">Internship</span>
+                        <span class="job-platform">Internshala</span>
+                    </div>
+
+                    <h3>Web Development Intern</h3>
+
+                    <p class="company-name">Example Digital Studio</p>
+
+                    <div class="job-meta">
+                        <span>📍 Remote</span>
+                        <span>🎓 Internship</span>
+                    </div>
+
+                    <p class="job-description">
+                        Learn by building responsive websites and
+                        supporting frontend and backend development.
+                    </p>
+
+                    <div class="job-skills">
+                        <span>HTML</span>
+                        <span>CSS</span>
+                        <span>JavaScript</span>
+                    </div>
+
+                    <div class="job-card-actions">
+                   
+
+                </article>
+
+            </div>
+
+        </section>
+
+        <!-- Empty State: Can be shown later when there are no results -->
+        <section class="no-jobs-message" id="noJobsMessage" hidden>
+            <h2>No matching jobs found</h2>
+
+            <p>
+                Try changing your job preferences to explore other
+                opportunities.
+            </p>
+
+            <a href="analyze.html" class="primary-button">
+                Update Preferences →
+            </a>
+        </section>
+
+        
+<div class="job-card-actions common-job-actions">
+
+    <button
+        type="button"
+        class="secondary-button"
+        id="viewSelectedJob"
+    >
+        View Details
+    </button>
+
+    <button
+        type="button"
+        class="primary-button"
+        id="analyzeSelectedJob"
+    >
+        Analyze Skill Gap →
+    </button>
+
+</div>
+
+
+        <!-- Footer CTA -->
+        <section class="results-cta">
+
+            <h2>Find the Skills Employers Need</h2>
+
+            <p>
+                Choose a job and compare its requirements with your
+                current skills.
+            </p>
+
+            <a href="analyze.html" class="primary-button">
+                Search Again →
+            </a>
+
+        </section>
+
+    </main>
+
+    <script src="js/common.js"></script>
+    <script src="js/results.js"></script>
+
+</body>
+
+</html>
