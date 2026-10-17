@@ -3,7 +3,7 @@ const jobPreferencesForm = document.getElementById("jobPreferencesForm");
 const fetchJobsButton = document.getElementById("fetchJobsButton");
 
 const JOBS_WEBHOOK_URL =
-    "https://n8n.bhuvisx.com/webhook-test/skillbridge-jobs";
+    "https://n8n.bhuvisx.com/webhook/skillbridge-jobs";
 
 if (jobPreferencesForm && fetchJobsButton) {
     jobPreferencesForm.addEventListener("submit", async function (event) {
