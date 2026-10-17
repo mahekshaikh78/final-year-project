@@ -321,3 +321,147 @@ if (analyzeSelectedJobButton) {
         }
     );
 }
+
+
+
+/* =========================
+   DYNAMIC JOB RESULTS
+========================= */
+
+const jobsGrid = document.getElementById("jobsGrid");
+const jobsMessage = document.getElementById("jobsMessage");
+const noJobsMessage = document.getElementById("noJobsMessage");
+
+const savedPreferences = JSON.parse(
+    sessionStorage.getItem("jobPreferences") || "null"
+);
+
+const savedResponse = JSON.parse(
+    sessionStorage.getItem("jobResults") || "null"
+);
+
+// Update the search summary.
+if (savedPreferences) {
+    document.getElementById("selectedRole").textContent =
+        savedPreferences.jobRole || "Not specified";
+
+    document.getElementById("selectedExperience").textContent =
+        savedPreferences.experienceLevel || "Not specified";
+
+    document.getElementById("selectedLocation").textContent =
+        savedPreferences.jobLocation || "Not specified";
+
+    document.getElementById("selectedPlatform").textContent =
+        savedPreferences.jobPlatform || "Not specified";
+}
+
+const returnedJobs =
+    savedResponse && Array.isArray(savedResponse.jobs)
+        ? savedResponse.jobs
+        : [];
+
+let activeJob = null;
+
+if (jobsGrid) {
+    jobsGrid.innerHTML = "";
+
+    if (returnedJobs.length === 0) {
+        if (jobsMessage) {
+            jobsMessage.textContent =
+                "No job results were received. Please try a new search.";
+        }
+
+        if (noJobsMessage) {
+            noJobsMessage.hidden = false;
+        }
+    } else {
+        if (jobsMessage) {
+            jobsMessage.textContent =
+                `${returnedJobs.length} sample job listing(s) returned by SkillBridge AI.`;
+        }
+
+        if (noJobsMessage) {
+            noJobsMessage.hidden = true;
+        }
+
+        returnedJobs.forEach(function (job, index) {
+            const card = document.createElement("article");
+            card.className = "job-card";
+            card.style.cursor = "pointer";
+
+            const skills = Array.isArray(job.skills) ? job.skills : [];
+
+            card.innerHTML = `
+                <div class="job-card-top">
+                    <span class="job-type"></span>
+                    <span class="job-platform"></span>
+                </div>
+
+                <h3 class="job-title"></h3>
+                <p class="company-name"></p>
+
+                <div class="job-meta">
+                    <span class="job-location"></span>
+                    <span class="job-experience"></span>
+                </div>
+
+                <p class="job-description"></p>
+                <div class="job-skills"></div>
+            `;
+
+            card.querySelector(".job-type").textContent =
+                job.experienceLevel || "Not specified";
+
+            card.querySelector(".job-platform").textContent =
+                job.platform || "Not specified";
+
+            card.querySelector(".job-title").textContent =
+                job.title || job.jobTitle || "Untitled role";
+
+            card.querySelector(".company-name").textContent =
+                job.company || "Company not specified";
+
+            card.querySelector(".job-location").textContent =
+                `📍 ${job.location || "Location not specified"}`;
+
+            card.querySelector(".job-experience").textContent =
+                `🎓 ${job.experienceLevel || "Not specified"}`;
+
+            card.querySelector(".job-description").textContent =
+                job.description || "Explore this role and its required skills.";
+
+            const skillsContainer = card.querySelector(".job-skills");
+
+            skills.forEach(function (skill) {
+                const tag = document.createElement("span");
+                tag.textContent = skill;
+                skillsContainer.appendChild(tag);
+            });
+
+            card.addEventListener("click", function () {
+                activeJob = job;
+
+                sessionStorage.setItem(
+                    "selectedJob",
+                    JSON.stringify(activeJob)
+                );
+
+                document.querySelectorAll(".jobs-grid .job-card").forEach(
+                    function (item) {
+                        item.style.borderColor =
+                            "rgba(255, 255, 255, 0.08)";
+                    }
+                );
+
+                card.style.borderColor = "#8b5cf6";
+            });
+
+            jobsGrid.appendChild(card);
+
+            // Select the first job by default.
+            if (index === 0) {
+                card.click();
+            }
+        });
+    }
+}
