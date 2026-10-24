@@ -1,13 +1,15 @@
-// =========================
-// RESULTS PAGE JAVASCRIPT
-// =========================
+
+/* =========================
+   RESULTS PAGE JAVASCRIPT
+========================= */
 
 
-// Demo analysis data
+/* =========================
+   DEMO ANALYSIS DATA
+========================= */
+
 const analysisData = {
-
     matchPercentage: 72,
-
     targetRole: "Full Stack Developer",
 
     matchedSkills: [
@@ -36,7 +38,6 @@ const analysisData = {
                 "Learn containers, images, Dockerfiles, and deployment basics.",
             duration: "4 Weeks"
         },
-
         {
             category: "Cloud",
             level: "Beginner",
@@ -45,7 +46,6 @@ const analysisData = {
                 "Understand the fundamentals of cloud computing and AWS services.",
             duration: "5 Weeks"
         },
-
         {
             category: "Frontend",
             level: "Intermediate",
@@ -55,157 +55,129 @@ const analysisData = {
             duration: "6 Weeks"
         }
     ]
-
 };
 
 
-// =========================
-// UPDATE MATCH PERCENTAGE
-// =========================
+/* =========================
+   UPDATE MATCH PERCENTAGE
+========================= */
 
 const score = document.querySelector(".score-circle strong");
 
 if (score) {
-    score.textContent =
-        `${analysisData.matchPercentage}%`;
+    score.textContent = `${analysisData.matchPercentage}%`;
 }
 
 
-// =========================
-// UPDATE TARGET ROLE
-// =========================
+/* =========================
+   UPDATE TARGET ROLE
+========================= */
 
-const targetRole = document.querySelector(".target-role strong");
+const targetRoleElement =
+    document.querySelector(".target-role strong");
 
-if (targetRole) {
-    targetRole.textContent =
-        analysisData.targetRole;
+if (targetRoleElement) {
+    targetRoleElement.textContent = analysisData.targetRole;
 }
 
 
-// =========================
-// UPDATE MATCHED SKILLS
-// =========================
+/* =========================
+   UPDATE MATCHED SKILLS
+========================= */
 
 const matchedSkillsContainer =
     document.querySelector(".skill-panel.matched .skill-tags");
 
 if (matchedSkillsContainer) {
-
     matchedSkillsContainer.innerHTML = "";
 
     analysisData.matchedSkills.forEach(function (skill) {
-
-        const skillElement =
-            document.createElement("span");
-
+        const skillElement = document.createElement("span");
         skillElement.textContent = skill;
-
-        matchedSkillsContainer.appendChild(
-            skillElement
-        );
-
+        matchedSkillsContainer.appendChild(skillElement);
     });
 }
 
 
-// =========================
-// UPDATE SKILL GAPS
-// =========================
+/* =========================
+   UPDATE SKILL GAPS
+========================= */
 
 const skillGapsContainer =
     document.querySelector(".skill-panel.gaps .skill-tags");
 
 if (skillGapsContainer) {
-
     skillGapsContainer.innerHTML = "";
 
     analysisData.skillGaps.forEach(function (skill) {
-
-        const skillElement =
-            document.createElement("span");
-
+        const skillElement = document.createElement("span");
         skillElement.textContent = skill;
-
-        skillGapsContainer.appendChild(
-            skillElement
-        );
-
+        skillGapsContainer.appendChild(skillElement);
     });
-}
-
-
-// =========================
-// UPDATE COURSES
-// =========================
-
-const coursesContainer =
-    document.querySelector(".courses-grid");
-
-if (coursesContainer) {
-
-    coursesContainer.innerHTML = "";
-
-    analysisData.courses.forEach(function (course) {
-
-        const courseCard =
-            document.createElement("div");
-
-        courseCard.className = "course-card";
-
-        courseCard.innerHTML = `
-
-            <div class="course-top">
-
-                <span class="course-category">
-                    ${course.category}
-                </span>
-
-                <span class="course-level">
-                    ${course.level}
-                </span>
-
-            </div>
-
-
-            <h3>
-                ${course.title}
-            </h3>
-
-
-            <p>
-                ${course.description}
-            </p>
-
-
-            <div class="course-bottom">
-
-                <span>
-                    ⏱ ${course.duration}
-                </span>
-
-                <a href="#">
-                    Learn More →
-                </a>
-
-            </div>
-
-        `;
-
-        coursesContainer.appendChild(
-            courseCard
-        );
-
-    });
-
 }
 
 
 /* =========================
-   COMMON JOB BUTTONS
+   UPDATE COURSES
 ========================= */
 
-const jobs = {
+const coursesContainer = document.querySelector(".courses-grid");
+
+if (coursesContainer) {
+    coursesContainer.innerHTML = "";
+
+    analysisData.courses.forEach(function (course) {
+        const courseCard = document.createElement("div");
+        courseCard.className = "course-card";
+
+        const courseTop = document.createElement("div");
+        courseTop.className = "course-top";
+
+        const category = document.createElement("span");
+        category.className = "course-category";
+        category.textContent = course.category;
+
+        const level = document.createElement("span");
+        level.className = "course-level";
+        level.textContent = course.level;
+
+        courseTop.appendChild(category);
+        courseTop.appendChild(level);
+
+        const title = document.createElement("h3");
+        title.textContent = course.title;
+
+        const description = document.createElement("p");
+        description.textContent = course.description;
+
+        const courseBottom = document.createElement("div");
+        courseBottom.className = "course-bottom";
+
+        const duration = document.createElement("span");
+        duration.textContent = `⏱ ${course.duration}`;
+
+        const learnMore = document.createElement("a");
+        learnMore.href = "#";
+        learnMore.textContent = "Learn More →";
+
+        courseBottom.appendChild(duration);
+        courseBottom.appendChild(learnMore);
+
+        courseCard.appendChild(courseTop);
+        courseCard.appendChild(title);
+        courseCard.appendChild(description);
+        courseCard.appendChild(courseBottom);
+
+        coursesContainer.appendChild(courseCard);
+    });
+}
+
+
+/* =========================
+   DEMO JOB FALLBACKS
+========================= */
+
+const demoJobs = {
     python: {
         title: "Junior Python Developer",
         company: "Example Technology Company",
@@ -228,101 +200,6 @@ const jobs = {
     }
 };
 
-const jobCards = document.querySelectorAll(".job-card");
-const viewSelectedJobButton =
-    document.getElementById("viewSelectedJob");
-const analyzeSelectedJobButton =
-    document.getElementById("analyzeSelectedJob");
-
-// Use the previously saved job, or default to the first job.
-let selectedJob = JSON.parse(
-    sessionStorage.getItem("selectedJob") || "null"
-);
-
-if (!selectedJob) {
-    selectedJob = jobs.python;
-
-    sessionStorage.setItem(
-        "selectedJob",
-        JSON.stringify(selectedJob)
-    );
-}
-
-// Allow the user to select a different job card.
-jobCards.forEach(function (card) {
-    card.style.cursor = "pointer";
-
-    card.addEventListener("click", function (event) {
-        if (event.target.closest("button, a")) {
-            return;
-        }
-
-        const titleElement = card.querySelector("h3");
-
-        if (!titleElement) {
-            return;
-        }
-
-        const title = titleElement.textContent.trim();
-
-        const matchingJob = Object.values(jobs).find(
-            function (job) {
-                return job.title === title;
-            }
-        );
-
-        if (!matchingJob) {
-            return;
-        }
-
-        selectedJob = matchingJob;
-
-        sessionStorage.setItem(
-            "selectedJob",
-            JSON.stringify(selectedJob)
-        );
-
-        // Highlight the selected card.
-        jobCards.forEach(function (item) {
-            item.style.borderColor =
-                "rgba(255, 255, 255, 0.08)";
-        });
-
-        card.style.borderColor = "#8b5cf6";
-    });
-});
-
-// View Details works even without selecting a card.
-if (viewSelectedJobButton) {
-    viewSelectedJobButton.addEventListener(
-        "click",
-        function () {
-            sessionStorage.setItem(
-                "selectedJobAction",
-                "view"
-            );
-
-            window.location.href = "job-details.html";
-        }
-    );
-}
-
-// Analyze Skill Gap also works without selecting a card.
-if (analyzeSelectedJobButton) {
-    analyzeSelectedJobButton.addEventListener(
-        "click",
-        function () {
-            sessionStorage.setItem(
-                "selectedJobAction",
-                "analyze"
-            );
-
-            window.location.href = "job-details.html";
-        }
-    );
-}
-
-
 
 /* =========================
    DYNAMIC JOB RESULTS
@@ -332,28 +209,68 @@ const jobsGrid = document.getElementById("jobsGrid");
 const jobsMessage = document.getElementById("jobsMessage");
 const noJobsMessage = document.getElementById("noJobsMessage");
 
-const savedPreferences = JSON.parse(
-    sessionStorage.getItem("jobPreferences") || "null"
-);
-
-const savedResponse = JSON.parse(
-    sessionStorage.getItem("jobResults") || "null"
-);
-
-// Update the search summary.
-if (savedPreferences) {
-    document.getElementById("selectedRole").textContent =
-        savedPreferences.jobRole || "Not specified";
-
-    document.getElementById("selectedExperience").textContent =
-        savedPreferences.experienceLevel || "Not specified";
-
-    document.getElementById("selectedLocation").textContent =
-        savedPreferences.jobLocation || "Not specified";
-
-    document.getElementById("selectedPlatform").textContent =
-        savedPreferences.jobPlatform || "Not specified";
+function readSessionJSON(key) {
+    try {
+        return JSON.parse(sessionStorage.getItem(key) || "null");
+    } catch (error) {
+        console.error(`Unable to read ${key} from session storage.`, error);
+        return null;
+    }
 }
+
+const savedPreferences = readSessionJSON("jobPreferences");
+const savedResponse = readSessionJSON("jobResults");
+
+
+/* =========================
+   UPDATE SEARCH SUMMARY
+========================= */
+
+if (savedPreferences) {
+    const selectedRole = document.getElementById("selectedRole");
+    const selectedExperience =
+        document.getElementById("selectedExperience");
+    const selectedLocation =
+        document.getElementById("selectedLocation");
+    const selectedPlatform =
+        document.getElementById("selectedPlatform");
+
+    if (selectedRole) {
+        selectedRole.textContent =
+            savedPreferences.jobRole ||
+            savedPreferences.role ||
+            "Not specified";
+    }
+
+    if (selectedExperience) {
+        selectedExperience.textContent =
+            savedPreferences.experienceLevel || "Not specified";
+    }
+
+    if (selectedLocation) {
+        selectedLocation.textContent =
+            savedPreferences.jobLocation ||
+            savedPreferences.location ||
+            "Not specified";
+    }
+
+    if (selectedPlatform) {
+        const platform =
+            savedPreferences.jobPlatform ||
+            savedPreferences.platform ||
+            "";
+
+        selectedPlatform.textContent = platform
+            ? platform.charAt(0).toUpperCase() +
+              platform.slice(1).toLowerCase()
+            : "Not specified";
+    }
+}
+
+
+/* =========================
+   READ LIVE JOB RESPONSE
+========================= */
 
 const returnedJobs =
     savedResponse && Array.isArray(savedResponse.jobs)
@@ -361,6 +278,35 @@ const returnedJobs =
         : [];
 
 let activeJob = null;
+
+
+/* =========================
+   FORMAT PLATFORM NAME
+========================= */
+
+function formatPlatformName(platform) {
+    const value = String(platform || "").trim();
+
+    if (!value) {
+        return "Platform not specified";
+    }
+
+    const normalized = value.toLowerCase();
+
+    const platformNames = {
+        linkedin: "LinkedIn",
+        indeed: "Indeed",
+        naukri: "Naukri"
+    };
+
+    return platformNames[normalized] ||
+        normalized.charAt(0).toUpperCase() + normalized.slice(1);
+}
+
+
+/* =========================
+   DISPLAY JOB CARDS
+========================= */
 
 if (jobsGrid) {
     jobsGrid.innerHTML = "";
@@ -377,60 +323,105 @@ if (jobsGrid) {
     } else {
         if (jobsMessage) {
             jobsMessage.textContent =
-                `${returnedJobs.length} sample job listing(s) returned by SkillBridge AI.`;
+                `${returnedJobs.length} live job listing(s) returned by SkillBridge AI.`;
         }
 
         if (noJobsMessage) {
             noJobsMessage.hidden = true;
         }
 
-        returnedJobs.forEach(function (job, index) {
+        returnedJobs.forEach(function (job) {
             const card = document.createElement("article");
             card.className = "job-card";
             card.style.cursor = "pointer";
 
-            const skills = Array.isArray(job.skills) ? job.skills : [];
+            /* Job type / selected search preference */
+            const jobType = document.createElement("span");
+            jobType.className = "job-type";
+            jobType.textContent =
+                savedPreferences?.experienceLevel ||
+                "Experience preference not specified";
 
-            card.innerHTML = `
-                <div class="job-card-top">
-                    <span class="job-type"></span>
-                    <span class="job-platform"></span>
-                </div>
+            /* Platform */
+            const jobPlatform = document.createElement("span");
+            jobPlatform.className = "job-platform";
 
-                <h3 class="job-title"></h3>
-                <p class="company-name"></p>
+            const platformValue =
+                job.platform ||
+                job.site ||
+                job.source ||
+                savedPreferences?.jobPlatform ||
+                savedPreferences?.platform ||
+                "";
 
-                <div class="job-meta">
-                    <span class="job-location"></span>
-                    <span class="job-experience"></span>
-                </div>
+            jobPlatform.textContent = formatPlatformName(platformValue);
 
-                <p class="job-description"></p>
-                <div class="job-skills"></div>
-            `;
+            const cardTop = document.createElement("div");
+            cardTop.className = "job-card-top";
+            cardTop.appendChild(jobType);
+            cardTop.appendChild(jobPlatform);
 
-            card.querySelector(".job-type").textContent =
-                job.experienceLevel || "Not specified";
-
-            card.querySelector(".job-platform").textContent =
-                job.platform || "Not specified";
-
-            card.querySelector(".job-title").textContent =
+            /* Job title */
+            const title = document.createElement("h3");
+            title.className = "job-title";
+            title.textContent =
                 job.title || job.jobTitle || "Untitled role";
 
-            card.querySelector(".company-name").textContent =
+            /* Company */
+            const company = document.createElement("p");
+            company.className = "company-name";
+            company.textContent =
                 job.company || "Company not specified";
 
-            card.querySelector(".job-location").textContent =
+            /* Location and employer requirements */
+            const meta = document.createElement("div");
+            meta.className = "job-meta";
+
+            const location = document.createElement("span");
+            location.className = "job-location";
+            location.textContent =
                 `📍 ${job.location || "Location not specified"}`;
 
-            card.querySelector(".job-experience").textContent =
-                `🎓 ${job.experienceLevel || "Not specified"}`;
+            const experience = document.createElement("span");
+            experience.className = "job-experience";
 
-            card.querySelector(".job-description").textContent =
-                job.description || "Explore this role and its required skills.";
+            const employerExperience =
+                job.experienceLevel ||
+                job.experience_level ||
+                job.experience ||
+                "";
 
-            const skillsContainer = card.querySelector(".job-skills");
+            experience.textContent = employerExperience
+                ? `🎓 ${employerExperience}`
+                : "🎓 Employer requirements not verified";
+
+            meta.appendChild(location);
+            meta.appendChild(experience);
+
+            /* Description */
+           
+/* Short description preview on job card */
+const description = document.createElement("p");
+description.className = "job-description";
+
+const fullDescription = String(job.description || "").trim();
+
+if (fullDescription) {
+    description.textContent =
+        fullDescription.length > 220
+            ? fullDescription.substring(0, 220).trimEnd() + "..."
+            : fullDescription;
+} else {
+    description.textContent =
+        "Description unavailable. Open the original job listing for more details.";
+}
+
+
+            /* Skills */
+            const skillsContainer = document.createElement("div");
+            skillsContainer.className = "job-skills";
+
+            const skills = Array.isArray(job.skills) ? job.skills : [];
 
             skills.forEach(function (skill) {
                 const tag = document.createElement("span");
@@ -438,7 +429,26 @@ if (jobsGrid) {
                 skillsContainer.appendChild(tag);
             });
 
-            card.addEventListener("click", function () {
+            /* Actions */
+            const actions = document.createElement("div");
+            actions.className = "job-card-actions";
+
+            const viewButton = document.createElement("button");
+            viewButton.type = "button";
+            viewButton.className = "secondary-button view-job-button";
+            viewButton.textContent = "View Details →";
+
+            actions.appendChild(viewButton);
+
+            card.appendChild(cardTop);
+            card.appendChild(title);
+            card.appendChild(company);
+            card.appendChild(meta);
+            card.appendChild(description);
+            card.appendChild(skillsContainer);
+            card.appendChild(actions);
+
+            function selectJob() {
                 activeJob = job;
 
                 sessionStorage.setItem(
@@ -446,7 +456,7 @@ if (jobsGrid) {
                     JSON.stringify(activeJob)
                 );
 
-                document.querySelectorAll(".jobs-grid .job-card").forEach(
+                jobsGrid.querySelectorAll(".job-card").forEach(
                     function (item) {
                         item.style.borderColor =
                             "rgba(255, 255, 255, 0.08)";
@@ -454,14 +464,81 @@ if (jobsGrid) {
                 );
 
                 card.style.borderColor = "#8b5cf6";
+            }
+
+            card.addEventListener("click", function (event) {
+                if (event.target.closest("button, a")) {
+                    return;
+                }
+
+                selectJob();
+            });
+
+            viewButton.addEventListener("click", function () {
+                selectJob();
+
+                sessionStorage.setItem("selectedJobAction", "view");
+                window.location.href = "job-details.html";
             });
 
             jobsGrid.appendChild(card);
-
-            // Select the first job by default.
-            if (index === 0) {
-                card.click();
-            }
         });
+
+        /* Select the first live job by default */
+        const firstCard = jobsGrid.querySelector(".job-card");
+
+        if (firstCard) {
+            firstCard.click();
+        }
     }
 }
+
+
+/* =========================
+   SELECTED JOB ACTION BUTTONS
+========================= */
+
+const viewSelectedJobButton =
+    document.getElementById("viewSelectedJob");
+
+const analyzeSelectedJobButton =
+    document.getElementById("analyzeSelectedJob");
+
+
+if (viewSelectedJobButton) {
+    viewSelectedJobButton.addEventListener("click", function () {
+        const selectedJob = readSessionJSON("selectedJob");
+
+        if (!selectedJob) {
+            alert("Please select a job first.");
+            return;
+        }
+
+        sessionStorage.setItem("selectedJobAction", "view");
+        window.location.href = "job-details.html";
+    });
+}
+
+
+
+if (analyzeSelectedJobButton) {
+    analyzeSelectedJobButton.addEventListener("click", function () {
+        if (returnedJobs.length === 0) {
+            alert("Please search for jobs first.");
+            return;
+        }
+
+        sessionStorage.setItem(
+            "commonJobDescriptionJobs",
+            JSON.stringify(returnedJobs)
+        );
+
+        sessionStorage.setItem(
+            "selectedJobAction",
+            "analyze"
+        );
+
+        window.location.href = "gap-analysis.html";
+    });
+}
+

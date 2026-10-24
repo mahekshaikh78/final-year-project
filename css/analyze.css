@@ -369,3 +369,32 @@
 #jobPreferencesForm .primary-button {
     grid-column: 1 / -1;
 }
+
+.custom-job-role-container {
+    margin-top: 12px;
+}
+
+.custom-job-role-container[hidden] {
+    display: none;
+}
+
+.custom-job-role-container label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.custom-job-role-container input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 14px;
+    border: 1px solid #49405f;
+    border-radius: 8px;
+    background-color: #171323;
+    color: #ffffff;
+    font: inherit;
+    outline: none;
+}
+
+.custom-job-role-container input:focus {
+    border-color: #a78bfa;
+}

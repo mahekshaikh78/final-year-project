@@ -9,19 +9,24 @@ if (jobPreferencesForm && fetchJobsButton) {
     jobPreferencesForm.addEventListener("submit", async function (event) {
         event.preventDefault();
 
-        const jobRole = document.getElementById("jobRole").value;
+        const selectedJobRole =
+            document.getElementById("jobRole").value;
+
         const preferredSkills = document
             .getElementById("preferredSkills")
             .value.trim();
+
         const experienceLevel =
             document.getElementById("experienceLevel").value;
+
         const jobLocation =
             document.getElementById("jobLocation").value;
+
         const jobPlatform =
             document.getElementById("jobPlatform").value;
 
         if (
-            !jobRole ||
+            !selectedJobRole ||
             !preferredSkills ||
             !experienceLevel ||
             !jobLocation ||
@@ -31,13 +36,19 @@ if (jobPreferencesForm && fetchJobsButton) {
             return;
         }
 
-        // Convert frontend field names to the names expected by n8n.
+        // For Other, search by skills instead of a job role.
+        const isOtherSelected =
+            selectedJobRole.toLowerCase() === "other";
+
+        const jobRole = isOtherSelected ? "" : selectedJobRole;
+
         const jobPreferences = {
             role: jobRole,
             platform: jobPlatform,
             location: jobLocation,
             experienceLevel: experienceLevel,
-            preferredSkills: preferredSkills
+            preferredSkills: preferredSkills,
+            searchBySkillsOnly: isOtherSelected
         };
 
         fetchJobsButton.disabled = true;
@@ -59,18 +70,20 @@ if (jobPreferencesForm && fetchJobsButton) {
             const result = await response.json();
 
             if (!result.success || !Array.isArray(result.jobs)) {
-                throw new Error("The workflow returned an unexpected response.");
+                throw new Error(
+                    "The workflow returned an unexpected response."
+                );
             }
 
-            // Save preferences and job results for results.html.
             sessionStorage.setItem(
                 "jobPreferences",
                 JSON.stringify({
-                    jobRole,
+                    jobRole: isOtherSelected ? "Other" : jobRole,
                     preferredSkills,
                     experienceLevel,
                     jobLocation,
-                    jobPlatform
+                    jobPlatform,
+                    searchBySkillsOnly: isOtherSelected
                 })
             );
 
@@ -85,9 +98,9 @@ if (jobPreferencesForm && fetchJobsButton) {
             console.error("Job retrieval error:", error);
 
             alert(
-                "Unable to retrieve jobs. Please check that your n8n workflow " +
-                "is listening for a test event and try again. If the problem " +
-                "continues, check the browser console and n8n execution details."
+                "Unable to retrieve jobs. Please check your n8n workflow " +
+                "and try again. If the problem continues, check the browser " +
+                "console and n8n execution details."
             );
 
         } finally {

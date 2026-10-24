@@ -4,11 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skill Gap Analysis | SkillBridge AI</title>
+    <title>Common Job Description & Skill Gap Analysis | SkillBridge AI</title>
 
-    <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/gap-analysis.css">
+    
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/common.css">
+<link rel="stylesheet" href="css/gap-analysis.css">
+
 </head>
+
 <body class="gap-analysis-page">
 
     <!-- NAVBAR -->
@@ -26,222 +33,283 @@
 
         <!-- PAGE HEADER -->
         <header class="gap-analysis-header">
-            <span class="section-tag">YOUR PERSONALIZED REPORT</span>
-            <h1>Your Skill Gap <span>Analysis</span></h1>
+            <span class="section-tag">YOUR PERSONALIZED CAREER REPORT</span>
+
+            <h1>Common Job <span>Description</span></h1>
+
             <p>
-                Discover your strengths, identify missing skills, and find
-                courses to help you prepare for your target job.
+                Review the common skills and responsibilities found across
+                your fetched job listings before analyzing your resume.
             </p>
         </header>
 
-        <!-- JOB SUMMARY -->
-        <section class="analysis-summary">
-            <div class="summary-heading">
-                <div>
-                    <span class="field-label">TARGET JOB ROLE</span>
-                    <h2 id="targetJobRole">Full Stack Developer</h2>
-                </div>
+        <!-- COMMON JOB DESCRIPTION -->
+        <section class="common-job-section" id="commonJobSection">
 
-                <span class="sample-badge" id="analysisStatus">
-                    Sample Analysis
-                </span>
+            <div class="section-heading">
+                <span class="section-tag">01 / JOB REQUIREMENTS</span>
+                <h2>Common Job Description</h2>
+
+                <p>
+                    This section summarizes information from all fetched job
+                    listings that contain job descriptions.
+                </p>
             </div>
 
-            <div class="match-overview">
-                <div class="match-score">
-                    <div class="score-circle" id="scoreCircle">
-                        <span id="matchPercentage">62.5%</span>
-                    </div>
+            <div class="common-job-card">
+
+                <div class="common-job-header">
                     <div>
-                        <h3>Skill Match</h3>
-                        <p>Based on the required job skills</p>
+                        <span class="field-label">TARGET JOB ROLE</span>
+                        <h3 id="commonJobRole">Your Target Role</h3>
+                    </div>
+
+                    <span class="sample-badge" id="commonJobCount">
+                        Loading jobs...
+                    </span>
+                </div>
+
+                <div class="common-job-content">
+                    <h3>Role Overview</h3>
+
+                    <p id="commonJobSummary" aria-live="polite">
+                        Preparing a common description from your fetched jobs...
+                    </p>
+                </div>
+
+                <div class="common-job-content">
+                    <h3>Common Responsibilities</h3>
+
+                    <ul id="commonResponsibilities">
+                        <li>Responsibilities will appear here.</li>
+                    </ul>
+                </div>
+
+                <div class="common-job-content">
+                    <h3>Common Skills and Requirements</h3>
+
+                    <div
+                        id="commonRequiredSkills"
+                        class="skill-tags"
+                    >
+                        <span>Extracting skills...</span>
                     </div>
                 </div>
 
-                <div class="summary-stat">
-                    <span class="stat-number" id="matchedCount">5</span>
-                    <span class="stat-label">Matched Skills</span>
-                </div>
+                <p
+                    id="commonJobMessage"
+                    class="common-job-message"
+                    role="status"
+                    aria-live="polite"
+                ></p>
 
-                <div class="summary-stat">
-                    <span class="stat-number" id="missingCount">3</span>
-                    <span class="stat-label">Missing Skills</span>
-                </div>
             </div>
         </section>
 
-        <!-- SKILL ANALYSIS -->
-        <section class="skills-section">
+        <!-- RESUME UPLOAD -->
+        <section class="resume-upload-section" id="resumeUploadSection">
+
             <div class="section-heading">
-                <span class="section-tag">01 / SKILL BREAKDOWN</span>
-                <h2>Understand Your Skills</h2>
-                <p>See which required skills you have and which ones need improvement.</p>
+                <span class="section-tag">02 / YOUR RESUME</span>
+                <h2>Upload Your Resume</h2>
+
+                <p>
+                    Upload your PDF or DOCX resume to compare your skills
+                    with the common job requirements.
+                </p>
             </div>
 
+            <div class="resume-upload-card">
+
+                <form id="resumeUploadForm" enctype="multipart/form-data">
+
+                    <label for="resumeFile">Choose your resume</label>
+
+                    <input
+                        type="file"
+                        id="resumeFile"
+                        name="resume"
+                        accept=".pdf,.docx"
+                        required
+                    >
+
+                    <p id="selectedFileName" aria-live="polite">
+                        Accepted formats: PDF or DOCX. Maximum size: 5 MB.
+                    </p>
+
+                    <p
+                        id="formMessage"
+                        role="status"
+                        aria-live="polite"
+                    ></p>
+
+                    <button
+                        type="submit"
+                        id="analyzeResumeButton"
+                        class="primary-button"
+                    >
+                        Analyze My Resume
+                    </button>
+
+                </form>
+
+            </div>
+        </section>
+
+        <!-- SKILL GAP ANALYSIS -->
+        <section class="skills-section" id="skillAnalysisSection" hidden >
+
+            <div class="section-heading">
+                <span class="section-tag">03 / SKILL BREAKDOWN</span>
+                <h2>Your Skill Gap Analysis</h2>
+
+                <p>
+                    Your matched skills, missing skills, and match percentage
+                    will be displayed here after resume analysis is implemented.
+                </p>
+            </div>
+
+            <!-- ANALYSIS SUMMARY -->
+            <section class="analysis-summary">
+
+                <div class="summary-heading">
+                    <div>
+                        <span class="field-label">TARGET JOB ROLE</span>
+                        <h2 id="targetJobRole">Waiting for analysis</h2>
+                    </div>
+
+                    <span class="sample-badge" id="analysisStatus">
+                        Awaiting Resume Analysis
+                    </span>
+                </div>
+
+                <div class="match-overview">
+
+                    <div class="match-score">
+                        <div class="score-circle" id="scoreCircle">
+                            <span id="matchPercentage">--%</span>
+                        </div>
+
+                        <div>
+                            <h3>Skill Match</h3>
+                            <p>Based on your resume and job requirements</p>
+                        </div>
+                    </div>
+
+                    <div class="summary-stat">
+                        <span class="stat-number" id="matchedCount">--</span>
+                        <span class="stat-label">Matched Skills</span>
+                    </div>
+
+                    <div class="summary-stat">
+                        <span class="stat-number" id="missingCount">--</span>
+                        <span class="stat-label">Missing Skills</span>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- MATCHED AND MISSING SKILLS -->
             <div class="skills-grid">
 
                 <article class="skills-card matched-card">
                     <div class="skills-card-heading">
                         <h3>Matched Skills</h3>
-                        <span class="skill-count" id="matchedBadge">5 skills</span>
+                        <span class="skill-count" id="matchedBadge">0 skills</span>
                     </div>
-                    <p>Skills identified in your resume.</p>
-                    <div class="skill-tags matched-tags" id="matchedSkills">
-                        <span>Python</span>
-                        <span>HTML</span>
-                        <span>CSS</span>
-                        <span>JavaScript</span>
-                        <span>Git</span>
-                    </div>
+
+                    <p>Skills found in your resume.</p>
+
+                    <div
+                        class="skill-tags matched-tags"
+                        id="matchedSkills"
+                    ></div>
                 </article>
 
                 <article class="skills-card missing-card">
                     <div class="skills-card-heading">
                         <h3>Skills to Develop</h3>
-                        <span class="skill-count" id="missingBadge">3 skills</span>
+                        <span class="skill-count" id="missingBadge">0 skills</span>
                     </div>
-                    <p>Required skills to learn or strengthen.</p>
-                    <div class="skill-tags missing-tags" id="missingSkills">
-                        <span>Django</span>
-                        <span>SQL</span>
-                        <span>REST APIs</span>
-                    </div>
+
+                    <p>Required skills not found in your resume.</p>
+
+                    <div
+                        class="skill-tags missing-tags"
+                        id="missingSkills"
+                    ></div>
                 </article>
 
             </div>
         </section>
 
         <!-- COURSE RECOMMENDATIONS -->
-        <section class="courses-section">
+        <section class="courses-section" id="coursesSection" hidden>
+
             <div class="section-heading">
-                <span class="section-tag">02 / PERSONALIZED LEARNING</span>
+                <span class="section-tag">04 / PERSONALIZED LEARNING</span>
                 <h2>Recommended Courses</h2>
+
                 <p>
-                    Courses selected to help you work on your missing skills.
-                    Complete them at your own pace.
+                    Learning resources to help you strengthen your missing skills.
                 </p>
             </div>
 
             <div class="course-filters">
-                <label for="courseSkillFilter">Filter by missing skill</label>
-                <select id="courseSkillFilter">
-                    <option value="all">All Missing Skills</option>
-                    <option value="Django">Django</option>
-                    <option value="SQL">SQL</option>
-                    <option value="REST APIs">REST APIs</option>
-                </select>
-            </div>
+                <label for="courseSkillFilter">Filter by skill</label>
 
-            <div class="courses-grid" id="recommendedCourses">
-
-                <article class="course-card" data-skill="Django">
-                    <div class="course-card-top">
-                        <span class="course-category">BACKEND DEVELOPMENT</span>
-                        <span class="course-level">Beginner</span>
-                    </div>
-                    <h3>Python and Django Web Development</h3>
-                    <p>Learn Django fundamentals and build a web application using Python.</p>
-                    <div class="course-details">
-                        <span>Skill: Django</span>
-                        <span>Duration: 4 weeks</span>
-                    </div>
-                    <a href="https://www.djangoproject.com/start/"
-                       target="_blank" rel="noopener noreferrer"
-                       class="course-link">Explore Learning Resource ↗</a>
-                </article>
-
-                <article class="course-card" data-skill="SQL">
-                    <div class="course-card-top">
-                        <span class="course-category">DATABASES</span>
-                        <span class="course-level">Beginner</span>
-                    </div>
-                    <h3>SQL Fundamentals</h3>
-                    <p>Practice queries, filtering, joins, grouping, and database operations.</p>
-                    <div class="course-details">
-                        <span>Skill: SQL</span>
-                        <span>Duration: 2 weeks</span>
-                    </div>
-                    <a href="https://www.w3schools.com/sql/"
-                       target="_blank" rel="noopener noreferrer"
-                       class="course-link">Explore Learning Resource ↗</a>
-                </article>
-
-                <article class="course-card" data-skill="REST APIs">
-                    <div class="course-card-top">
-                        <span class="course-category">API DEVELOPMENT</span>
-                        <span class="course-level">Beginner</span>
-                    </div>
-                    <h3>REST API Development</h3>
-                    <p>Understand HTTP methods, endpoints, requests, responses, and API design.</p>
-                    <div class="course-details">
-                        <span>Skill: REST APIs</span>
-                        <span>Duration: 2 weeks</span>
-                    </div>
-                    <a href="https://www.django-rest-framework.org/tutorial/quickstart/"
-                       target="_blank" rel="noopener noreferrer"
-                       class="course-link">Explore Learning Resource ↗</a>
-                </article>
+                
+<select id="courseSkillFilter">
+    <option value="all">All Missing Skills</option>
+</select>
 
             </div>
+
+          
+<div class="courses-grid" id="recommendedCourses">
+    <!-- Personalized course cards will be generated by JavaScript -->
+</div>
+
+<p class="no-courses-message" id="noCoursesMessage" hidden>
+    No learning resources found for this skill.
+</p>
+
 
             <p class="no-courses-message" id="noCoursesMessage" hidden>
                 No courses found for this skill.
             </p>
+
         </section>
 
         <!-- LEARNING ROADMAP -->
-        <section class="roadmap-section">
+        <section class="roadmap-section" id="roadmapSection" hidden>
+
             <div class="section-heading">
-                <span class="section-tag">03 / YOUR NEXT STEPS</span>
+                <span class="section-tag">05 / YOUR NEXT STEPS</span>
                 <h2>Your Learning Roadmap</h2>
-                <p>Follow a suggested learning sequence to prepare for your target role.</p>
+
+                <p>
+                    A suggested learning sequence for preparing for your target role.
+                </p>
             </div>
 
-            <div class="roadmap-list" id="learningRoadmap">
-                <article class="roadmap-item">
-                    <span class="roadmap-number">01</span>
-                    <div>
-                        <h3>Learn Django Fundamentals</h3>
-                        <p>Understand URLs, views, models, templates, and basic CRUD operations.</p>
-                        <span class="roadmap-duration">Suggested duration: 4 weeks</span>
-                    </div>
-                </article>
+         
+<div class="roadmap-list" id="learningRoadmap">
+    <!-- Personalized roadmap steps will be generated by JavaScript -->
+</div>
 
-                <article class="roadmap-item">
-                    <span class="roadmap-number">02</span>
-                    <div>
-                        <h3>Strengthen SQL Skills</h3>
-                        <p>Practice queries, joins, aggregation, and database relationships.</p>
-                        <span class="roadmap-duration">Suggested duration: 2 weeks</span>
-                    </div>
-                </article>
-
-                <article class="roadmap-item">
-                    <span class="roadmap-number">03</span>
-                    <div>
-                        <h3>Build REST APIs</h3>
-                        <p>Practice API endpoints, HTTP methods, validation, and JSON responses.</p>
-                        <span class="roadmap-duration">Suggested duration: 2 weeks</span>
-                    </div>
-                </article>
-
-                <article class="roadmap-item">
-                    <span class="roadmap-number">04</span>
-                    <div>
-                        <h3>Build a Full Stack Project</h3>
-                        <p>Combine your skills into a working project and add it to your portfolio.</p>
-                        <span class="roadmap-duration">Suggested duration: 2–3 weeks</span>
-                    </div>
-                </article>
-            </div>
         </section>
 
         <!-- FOOTER ACTION -->
         <section class="analysis-footer">
             <h2>Keep Moving Forward</h2>
-            <p>Build your skills one step at a time and track your progress.</p>
-            <a href="job-details.html" class="primary-button">
-                Back to Resume Upload
+
+            <p>
+                Build your skills one step at a time and track your progress.
+            </p>
+
+            <a href="results.html" class="primary-button">
+                Back to Job Results
             </a>
         </section>
 
@@ -253,5 +321,6 @@
 
     <script src="js/common.js"></script>
     <script src="js/gap-analysis.js"></script>
+
 </body>
 </html>

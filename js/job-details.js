@@ -1,106 +1,18 @@
 
 /* =========================
-   JOB DATA
+   LOAD SELECTED LIVE JOB
 ========================= */
 
-const jobData = {
-    "Python Developer": {
-        description: "We are looking for a Python Developer to build and maintain applications using Python, Django, and databases.",
-        responsibilities: [
-            "Develop and maintain applications using Python.",
-            "Build backend functionality using Django.",
-            "Work with SQL databases and REST APIs.",
-            "Test, debug, and improve application performance."
-        ],
-        skills: ["Python", "Django", "SQL", "REST APIs", "Git"]
-    },
-
-    "Full Stack Developer": {
-        description: "We are looking for a Full Stack Developer who can build responsive user interfaces and develop backend applications.",
-        responsibilities: [
-            "Create responsive web pages using HTML, CSS, and JavaScript.",
-            "Develop backend features using Python and Django.",
-            "Work with databases and REST APIs.",
-            "Test and maintain web applications."
-        ],
-        skills: ["HTML", "CSS", "JavaScript", "Python", "Django", "SQL", "REST APIs"]
-    },
-
-    "Frontend Developer": {
-        description: "We are looking for a Frontend Developer to create responsive, accessible, and user-friendly web interfaces.",
-        responsibilities: [
-            "Build responsive web pages.",
-            "Write maintainable HTML, CSS, and JavaScript.",
-            "Work with designers to implement user interfaces.",
-            "Test pages across different screen sizes."
-        ],
-        skills: ["HTML", "CSS", "JavaScript", "Responsive Design", "Git"]
-    },
-
-    "Backend Developer": {
-        description: "We are looking for a Backend Developer to develop server-side applications, manage databases, and build APIs.",
-        responsibilities: [
-            "Develop backend logic and application features.",
-            "Work with Python and Django.",
-            "Design and query relational databases.",
-            "Build, test, and maintain REST APIs."
-        ],
-        skills: ["Python", "Django", "SQL", "REST APIs", "Git"]
-    },
-
-    "Software Engineer": {
-        description: "We are looking for a Software Engineer to design, develop, test, and maintain reliable software applications.",
-        responsibilities: [
-            "Write clean and maintainable code.",
-            "Solve programming and debugging problems.",
-            "Work with databases and software components.",
-            "Test applications and collaborate with team members."
-        ],
-        skills: ["Python", "DSA", "OOP", "SQL", "Git"]
-    },
-
-    "Data Analyst": {
-        description: "We are looking for a Data Analyst to analyze data, identify trends, and prepare reports that support decisions.",
-        responsibilities: [
-            "Collect, clean, and analyze datasets.",
-            "Write SQL queries to retrieve information.",
-            "Use Python to analyze data.",
-            "Create reports and data visualizations."
-        ],
-        skills: ["SQL", "Python", "Excel", "Data Analysis", "Visualization"]
-    },
-
-    "AI/ML Engineer": {
-        description: "We are looking for an AI/ML Engineer to prepare data, develop machine learning models, and evaluate model performance.",
-        responsibilities: [
-            "Prepare and process datasets.",
-            "Develop and evaluate machine learning models.",
-            "Use Python and relevant ML libraries.",
-            "Document experiments and model results."
-        ],
-        skills: ["Python", "Machine Learning", "Pandas", "NumPy", "Statistics"]
-    },
-
-    "Web Developer": {
-        description: "We are looking for a Web Developer to build, maintain, and improve modern websites and web applications.",
-        responsibilities: [
-            "Create web pages using HTML and CSS.",
-            "Add interactive features using JavaScript.",
-            "Connect pages to backend services when available.",
-            "Test and maintain website functionality."
-        ],
-        skills: ["HTML", "CSS", "JavaScript", "Responsive Design", "Git"]
+function readSessionJSON(key) {
+    try {
+        return JSON.parse(sessionStorage.getItem(key) || "null");
+    } catch (error) {
+        console.error("Unable to read saved job:", error);
+        return null;
     }
-};
+}
 
-
-/* =========================
-   LOAD SAVED JOB
-========================= */
-
-const savedJob = JSON.parse(
-    sessionStorage.getItem("selectedJob") || "null"
-);
+const savedJob = readSessionJSON("selectedJob");
 
 const roleSelect = document.getElementById("jobRoleSelect");
 const roleTitle = document.getElementById("jobRoleTitle");
@@ -116,50 +28,207 @@ const formMessage = document.getElementById("formMessage");
 
 
 /* =========================
-   DISPLAY JOB DETAILS
+   EXTRACT REAL JOB DETAILS
 ========================= */
 
-function displayJobDetails(job, title) {
-    roleTitle.textContent = title;
-    descriptionText.textContent = job.description;
 
-    responsibilitiesList.replaceChildren();
-
-    job.responsibilities.forEach(function (responsibility) {
-        const item = document.createElement("li");
-        item.textContent = responsibility;
-        responsibilitiesList.appendChild(item);
-    });
-
-    requiredSkills.replaceChildren();
-
-    job.skills.forEach(function (skill) {
-        const tag = document.createElement("span");
-        tag.textContent = skill;
-        requiredSkills.appendChild(tag);
-    });
-
-    descriptionType.textContent = "Sample Description";
+function cleanJobText(text) {
+    return String(text || "")
+        .replace(/\r/g, "\n")
+        .replace(/\\n/g, "\n")
+        .replace(/\*\*/g, "")
+        .replace(/\\\*/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
 }
 
 
+function extractResponsibilities(description) {
+    const text = cleanJobText(description);
+
+    const startPattern =
+        /(?:key responsibilities|responsibilities|what you will do|what you'll do|duties)\s*:?\s*/i;
+
+    const endPattern =
+        /(?:required skills\s*&?\s*qualifications|required qualifications|qualifications|preferred qualifications|minimum qualifications|about us|about the company)\s*:?\s*/i;
+
+    const start = text.match(startPattern);
+
+    if (!start || start.index === undefined) {
+        return [];
+    }
+
+    const contentStart = start.index + start[0].length;
+    const remaining = text.slice(contentStart);
+    const end = remaining.match(endPattern);
+    const section = end
+        ? remaining.slice(0, end.index)
+        : remaining;
+
+    return section
+        .split(/\s+\*\s+|\s+•\s+|(?<=\.)\s+(?=[A-Z])/)
+        .map(function (item) {
+            return item.replace(/^[\s*•-]+/, "").trim();
+        })
+        .filter(function (item) {
+            return item.length > 15;
+        });
+}
+
+
+
+function extractSkills(description, suppliedSkills) {
+    if (Array.isArray(suppliedSkills) && suppliedSkills.length > 0) {
+        return suppliedSkills
+            .map(function (skill) {
+                return String(skill).trim();
+            })
+            .filter(Boolean);
+    }
+
+    const text = String(description || "")
+        .replace(/\*\*/g, "")
+        .replace(/\r/g, "\n")
+        .replace(/\\n/g, "\n");
+
+    const skills = [
+        "Python", "Java", "C#", "Go", "Kotlin",
+        "JavaScript", "TypeScript", "SQL",
+        "PostgreSQL", "SQL Server", "MySQL",
+        "REST APIs", "event-driven integrations",
+        "distributed systems", "microservices",
+        "system design", "design patterns",
+        "automated testing", "unit testing",
+        "integration testing", "contract testing",
+        "Docker", "Kubernetes", "AWS", "Azure", "GCP",
+        "CI/CD", "GitHub", "Agile",
+        "AI-assisted development tools",
+        "LLM APIs", "intelligent automation",
+        "agentic workflows", "observability",
+        "production operations"
+    ];
+
+    const foundSkills = [];
+
+    skills.forEach(function (skill) {
+        const escapedSkill = skill.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        const pattern = new RegExp("\\b" + escapedSkill + "\\b", "i");
+
+        if (pattern.test(text)) {
+            foundSkills.push(skill);
+        }
+    });
+
+    return foundSkills;
+}
+
+
+
+
 /* =========================
-   UPDATE JOB DESCRIPTION
+   DISPLAY SELECTED JOB
 ========================= */
 
-function updateJobDescription() {
-    const selectedRole = roleSelect.value;
-    const job = jobData[selectedRole];
-
+function displayJobDetails(job) {
     if (!job) {
         return;
     }
 
-    displayJobDetails(job, selectedRole);
+    const title = job.title || job.jobTitle || "Selected Job";
+    const description = String(job.description || "").trim();
+
+    if (roleTitle) {
+        roleTitle.textContent = title;
+    }
+
+    if (roleSelect) {
+        const matchingOption = Array.from(roleSelect.options).find(
+            function (option) {
+                return option.value.trim().toLowerCase() ===
+                    title.trim().toLowerCase() ||
+                    option.textContent.trim().toLowerCase() ===
+                    title.trim().toLowerCase();
+            }
+        );
+
+        // Do not change the live job title if the dropdown
+        // contains only general role categories.
+        if (matchingOption) {
+            roleSelect.value = matchingOption.value;
+        }
+    }
+
+    if (descriptionText) {
+        descriptionText.textContent = description ||
+            "The source did not provide a full description for this listing. Please use the original job listing to review its details.";
+    }
+
+    if (descriptionType) {
+        descriptionType.textContent = description
+            ? "Live Job Description"
+            : "Description Unavailable";
+    }
+
+    if (responsibilitiesList) {
+        responsibilitiesList.replaceChildren();
+
+        const responsibilities = extractResponsibilities(description);
+
+        if (responsibilities.length > 0) {
+            responsibilities.forEach(function (item) {
+                const li = document.createElement("li");
+                li.textContent = item;
+                responsibilitiesList.appendChild(li);
+            });
+        } else {
+            const li = document.createElement("li");
+            li.textContent =
+                "Separate responsibilities could not be identified in the source description.";
+            responsibilitiesList.appendChild(li);
+        }
+    }
+
+    if (requiredSkills) {
+        requiredSkills.replaceChildren();
+
+        const skills = extractSkills(description, job.skills);
+
+        if (skills.length > 0) {
+            skills.forEach(function (skill) {
+                const tag = document.createElement("span");
+                tag.textContent = skill;
+                requiredSkills.appendChild(tag);
+            });
+        } else {
+            const message = document.createElement("p");
+            message.textContent =
+                "Specific skills were not supplied separately by the job source.";
+            requiredSkills.appendChild(message);
+        }
+    }
+
+    // Update the browser tab title for the selected listing.
+    document.title = title + " | Job Details";
+
+    if (formMessage) {
+        formMessage.textContent = "";
+    }
 }
 
-// Update the description when the dropdown changes.
-roleSelect.addEventListener("change", updateJobDescription);
+
+/* =========================
+   ROLE DROPDOWN
+========================= */
+
+if (roleSelect) {
+    roleSelect.addEventListener("change", function () {
+        // The dropdown is a preference, not a replacement
+        // for the actual live job selected from the results.
+        if (roleTitle && !savedJob) {
+            roleTitle.textContent = roleSelect.value;
+        }
+    });
+}
 
 
 /* =========================
@@ -167,34 +236,20 @@ roleSelect.addEventListener("change", updateJobDescription);
 ========================= */
 
 if (savedJob) {
-    const matchingRole = Object.keys(jobData).find(function (role) {
-        return role.toLowerCase() === savedJob.title.toLowerCase();
-    });
-
-    if (matchingRole) {
-        roleSelect.value = matchingRole;
-        updateJobDescription();
-    } else {
-        // Display a job selected from the Results page.
-        const customJob = {
-            description:
-                "Sample job description for " + savedJob.title +
-                " at " + savedJob.company + ".",
-
-            responsibilities: [
-                "Review the requirements for this position.",
-                "Work with the technologies listed for this job.",
-                "Develop, test, and maintain application features."
-            ],
-
-            skills: savedJob.skills || []
-        };
-
-        displayJobDetails(customJob, savedJob.title);
-    }
+    displayJobDetails(savedJob);
 } else {
-    // Display the default role if no job was selected.
-    updateJobDescription();
+    if (roleTitle) {
+        roleTitle.textContent = "No job selected";
+    }
+
+    if (descriptionText) {
+        descriptionText.textContent =
+            "Please return to the results page and select a job first.";
+    }
+
+    if (descriptionType) {
+        descriptionType.textContent = "No Job Selected";
+    }
 }
 
 
@@ -202,93 +257,99 @@ if (savedJob) {
    RESUME VALIDATION
 ========================= */
 
-resumeFile.addEventListener("change", function () {
-    formMessage.textContent = "";
+if (resumeFile) {
+    resumeFile.addEventListener("change", function () {
+        if (formMessage) {
+            formMessage.textContent = "";
+        }
 
-    const file = resumeFile.files[0];
+        const file = resumeFile.files[0];
 
-    if (!file) {
-        selectedFileName.textContent = "No file selected";
-        return;
-    }
+        if (!file) {
+            if (selectedFileName) {
+                selectedFileName.textContent = "No file selected";
+            }
+            return;
+        }
 
-    const validExtension = /\.(pdf|docx)$/i.test(file.name);
+        const validExtension = /\.(pdf|docx)$/i.test(file.name);
 
-    const validType =
-        file.type === "application/pdf" ||
-        file.type ===
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+        const validType =
+            file.type === "application/pdf" ||
+            file.type ===
+                "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
 
-    if (!validExtension || !validType) {
-        selectedFileName.textContent = "No file selected";
-        formMessage.textContent =
-            "Please select a valid PDF or DOCX resume.";
+        if (!validExtension || !validType) {
+            if (selectedFileName) {
+                selectedFileName.textContent = "No file selected";
+            }
 
-        resumeFile.value = "";
-        return;
-    }
+            if (formMessage) {
+                formMessage.textContent =
+                    "Please select a valid PDF or DOCX resume.";
+            }
 
-    if (file.size > 5 * 1024 * 1024) {
-        selectedFileName.textContent = "No file selected";
-        formMessage.textContent =
-            "Your resume must be smaller than 5 MB.";
+            resumeFile.value = "";
+            return;
+        }
 
-        resumeFile.value = "";
-        return;
-    }
+        if (file.size > 5 * 1024 * 1024) {
+            if (selectedFileName) {
+                selectedFileName.textContent = "No file selected";
+            }
 
-    selectedFileName.textContent = file.name;
-});
+            if (formMessage) {
+                formMessage.textContent =
+                    "Your resume must be smaller than 5 MB.";
+            }
+
+            resumeFile.value = "";
+            return;
+        }
+
+        if (selectedFileName) {
+            selectedFileName.textContent = file.name;
+        }
+    });
+}
 
 
 /* =========================
    CONNECT TO GAP ANALYSIS
 ========================= */
 
-resumeForm.addEventListener("submit", function (event) {
-    event.preventDefault();
+if (resumeForm) {
+    resumeForm.addEventListener("submit", function (event) {
+        event.preventDefault();
 
-    const file = resumeFile.files[0];
+        const file = resumeFile ? resumeFile.files[0] : null;
 
-    if (!file) {
-        formMessage.style.color = "#fca5a5";
-        formMessage.textContent =
-            "Please upload your resume first.";
-        return;
-    }
+        if (!file) {
+            if (formMessage) {
+                formMessage.style.color = "#fca5a5";
+                formMessage.textContent =
+                    "Please upload your resume first.";
+            }
+            return;
+        }
 
-    // Identify the role currently displayed on this page.
-    const currentTitle = roleTitle.textContent.trim();
-    const matchingRole = Object.keys(jobData).find(function (role) {
-        return role.toLowerCase() === currentTitle.toLowerCase();
+        if (!savedJob) {
+            if (formMessage) {
+                formMessage.style.color = "#fca5a5";
+                formMessage.textContent =
+                    "Please select a job from the results page first.";
+            }
+            return;
+        }
+
+        sessionStorage.setItem(
+            "gapAnalysisJob",
+            JSON.stringify(savedJob)
+        );
+
+        sessionStorage.setItem("uploadedResumeName", file.name);
+
+        // This stores the filename, not the file contents.
+        window.location.href = "gap-analysis.html";
     });
-
-    const currentJobData = matchingRole
-        ? jobData[matchingRole]
-        : null;
-
-    // Save the job information for Gap Analysis.
-    const gapAnalysisJob = {
-        title: currentTitle,
-        company: savedJob ? savedJob.company : "",
-        location: savedJob ? savedJob.location : "",
-        skills: currentJobData
-            ? currentJobData.skills
-            : Array.from(
-                requiredSkills.querySelectorAll("span")
-            ).map(function (tag) {
-                return tag.textContent.trim();
-            })
-    };
-
-    sessionStorage.setItem(
-        "gapAnalysisJob",
-        JSON.stringify(gapAnalysisJob)
-    );
-
-    // Save the filename for display on the next page.
-    sessionStorage.setItem("uploadedResumeName", file.name);
-
-    // Open the Gap Analysis page.
-    window.location.href = "gap-analysis.html";
-});
+}
