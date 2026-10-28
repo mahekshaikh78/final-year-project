@@ -73,111 +73,155 @@
                 <form id="jobPreferencesForm">
 
                     
-<!-- Job Role -->
-<div class="form-group">
-    <label for="jobRole">Preferred Job Role</label>
+        <!-- Job Role -->
+        <div class="form-group">
+            <label for="jobRole">Preferred Job Role *</label>
 
-    <select id="jobRole" name="jobRole" required>
-        <option value="">Select a job role</option>
-        <option value="Python Developer">Python Developer</option>
-        <option value="Full Stack Developer">Full Stack Developer</option>
-        <option value="Frontend Developer">Frontend Developer</option>
-        <option value="Backend Developer">Backend Developer</option>
-        <option value="Software Engineer">Software Engineer</option>
-        <option value="Data Analyst">Data Analyst</option>
-        <option value="AI ML Engineer">AI/ML Engineer</option>
-        <option value="Web Developer">Web Developer</option>
-        <option value="other">Other</option>
-    </select>
+            <select id="jobRole" name="jobRole" required>
+                <option value="">Select a job role</option>
+                <option value="Python Developer">Python Developer</option>
+                <option value="Full Stack Developer">Full Stack Developer</option>
+                <option value="Frontend Developer">Frontend Developer</option>
+                <option value="Backend Developer">Backend Developer</option>
+                <option value="Software Engineer">Software Engineer</option>
+                <option value="Data Analyst">Data Analyst</option>
+                <option value="AI ML Engineer">AI/ML Engineer</option>
+                <option value="Web Developer">Web Developer</option>
+                <option value="other">Other</option>
+            </select>
 
-</div>
-                      <!-- Job Platform -->
-                    <div class="form-group">
-                        <label for="jobPlatform">Preferred Job Platform</label>
+        </div>
+        <div class="form-group" id="customRoleGroup" hidden>
+            <label for="customJobRole">Enter your preferred job role</label>
+            <input type="text" id="customJobRole"
+                placeholder="Example: Java Developer">
+        </div>
 
-                        <select id="jobPlatform" name="jobPlatform" required>
-                            <option value="">Select a job platform</option>
-                            <option value="LinkedIn">LinkedIn</option>
-                            <option value="Naukri">Naukri.com</option>
-                            <option value="Indeed">Indeed</option>
-                            <option value="Any Platform">Any Platform</option>
-                        </select>
-                    </div>
-                    <!-- Location -->
-                    <div class="form-group">
-                        <label for="jobLocation">Preferred Location</label>
+        <!-- Job Platform -->
 
-                        <select id="jobLocation" name="jobLocation" required>
-                            <option value="">Select a location</option>
-                            <option value="Pune">Pune</option>
-                            <option value="Mumbai">Mumbai</option>
-                            <option value="Bengaluru">Bengaluru</option>
-                            <option value="Hyderabad">Hyderabad</option>
-                            <option value="Chennai">Chennai</option>
-                            <option value="Delhi NCR">Delhi NCR</option>
-                            <option value="Remote">Remote</option>
-                            <option value="Any Location">Any Location</option>
-                        </select>
-                    </div>
-                   
-                    <!-- Experience Level -->
-                    <div class="form-group">
-                        <label for="experienceLevel">Experience Level</label>
+        <div class="form-group">
+            <label for="jobPlatform">Preferred Job Platform *</label>
 
-                        <select id="experienceLevel" name="experienceLevel" required>
-                            <option value="">Select experience level</option>
-                            <option value="Internship">Internship</option>
-                            <option value="Fresher">Fresher</option>
-                            <option value="Entry Level">Entry Level</option>
-                            <option value="Experienced">Experienced</option>
-                        </select>
-                    </div>
+            <div class="checkbox-group" id="platformGroup">
+            <label class="checkbox-item">
+            <input type="checkbox" name="jobPlatform" value="LinkedIn">
+            LinkedIn
+            </label>
+            <label class="checkbox-item">
+            <input type="checkbox" name="jobPlatform" value="Naukri">
+            Naukri.com
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" name="jobPlatform" value="Indeed">
+                Indeed
+            </label>
+            
+        </div>
+        </div>
 
-                   <!-- Skills -->
-                    <div class="form-group">
-                        <label for="preferredSkills">Preferred Skills</label>
+       
 
-                        <textarea
+        <!-- Location -->
+        <div class="form-group">
+            <label for="jobLocation">Preferred Location *</label>
+
+            <div class="checkbox-group" id="locationGroup">
+            <label class="checkbox-item">
+                <input type="checkbox" name="jobLocation" value="Pune"> Pune
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" name="jobLocation" value="Mumbai"> Mumbai
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" name="jobLocation" value="Bengaluru"> Bengaluru
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" name="jobLocation" value="Hyderabad"> Hyderabad
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" name="jobLocation" value="Chennai"> Chennai
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" name="jobLocation" value="Delhi NCR"> Delhi NCR
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" name="jobLocation" value="Any Location"> Any Location
+            </label>
+        </div>
+        </div>
+
+        <!-- Work Mode -->
+
+        <div class="form-group">
+            <label>Work Mode *</label>
+            <div class="checkbox-group" id="workModeGroup">
+                <label class="checkbox-item">
+                    <input type="checkbox" name="workMode" value="Remote"> Remote
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox" name="workMode" value="On-site"> On-site
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox" name="workMode" value="Hybrid"> Hybrid
+                </label>
+            </div>
+        </div>
+
+        <!-- Experience Level -->
+
+        <div class="form-group">
+        <label for="experienceLevel">Experience Level *</label>
+
+            <select id="experienceLevel" name="experienceLevel" required>
+                <option value="">Select experience level</option>
+                <option value="0-3 years">0–3 years</option>
+                <option value="3-5 years">3–5 years</option>
+                <option value="5-7 years">5–7 years</option>
+            </select>
+        </div>
+         <!-- Country -->
+
+        <div class="form-group">
+            <label for="jobCountry">Country</label>
+            <select id="jobCountry" name="jobCountry" required>
+                <option value="India" selected>India</option>
+                <option value="United States">United States</option>
+                <option value="United Kingdom">United Kingdom</option>
+                <option value="Canada">Canada</option>
+                <option value="Australia">Australia</option>
+            </select>
+        </div>
+        <!-- Skills -->
+
+        <div class="form-group">
+            <label for="preferredSkills">Preferred Skills *</label>
+
+            <textarea
                             id="preferredSkills"
                             name="preferredSkills"
                             placeholder="Example: Python, Django, SQL, HTML, CSS"
                             maxlength="500"
                             required
-                        ></textarea>
+            ></textarea>
 
-                        <small>
+            <small>
                             Separate skills with commas.
-                        </small>
-                    </div>
+            </small>
+        </div>
 
-                                        <!-- Job Platform
-                    <div class="form-group">
-                        <label for="jobPlatform">Preferred Job Platform</label>
-
-                        <select id="jobPlatform" name="jobPlatform" required>
-                            <option value="">Select a job platform</option>
-                            <option value="LinkedIn">LinkedIn</option>
-                            <option value="Naukri">Naukri.com</option>
-                            <option value="Indeed">Indeed</option>
-                            <option value="Foundit">Foundit</option>
-                            <option value="Internshala">Internshala</option>
-                            <option value="Any Platform">Any Platform</option>
-                        </select>
-                    </div> -->
-
-                    <button
+        <button
                         type="submit"
                         class="primary-button"
                         id="fetchJobsButton"
                     >
                         Find Matching Jobs →
-                    </button>
+        </button>
 
-                </form>
+    </form>
 
-            </div>
+</div>
 
-        </div>
+</div>
 
         <div class="analyze-action">
             <p>
