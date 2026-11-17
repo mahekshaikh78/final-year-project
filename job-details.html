@@ -3,32 +3,18 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Job Details & Resume | SkillBridge AI</title>
 
-    <link
-        rel="stylesheet"
-        href="css/common.css"
-    >
-
-    <link
-        rel="stylesheet"
-        href="css/job-details.css"
-    >
-
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/job-details.css">
 </head>
 
 <body>
 
     <!-- Navbar -->
-
     <nav class="navbar">
 
         <div class="logo">
@@ -36,37 +22,21 @@
         </div>
 
         <div class="nav-links">
-
-            <a href="index.html">
-                Home
-            </a>
-
-            <a href="index.html#how-it-works">
-                How It Works
-            </a>
-
-            <a href="index.html#about">
-                About
-            </a>
-
+            <a href="index.html">Home</a>
+            <a href="index.html#how-it-works">How It Works</a>
+            <a href="index.html#about">About</a>
         </div>
 
-        <a
-            href="results.html"
-            class="nav-button"
-        >
+        <a href="results.html" class="nav-button">
             Back to Jobs →
         </a>
 
     </nav>
 
-
     <!-- Main Page -->
-
     <main class="job-details-page">
 
         <!-- Page Header -->
-
         <section class="job-details-header">
 
             <div class="section-badge">
@@ -85,16 +55,12 @@
 
         </section>
 
-
         <!-- Job Description Section -->
-
         <section class="job-description-section">
 
             <div class="section-heading">
 
-                <div class="section-badge">
-                    
-                </div>
+                <div class="section-badge"></div>
 
                 <h2>Job Description</h2>
 
@@ -105,13 +71,11 @@
 
             </div>
 
-
             <div class="job-description-card">
 
                 <div class="job-role-header">
 
                     <div>
-
                         <span class="field-label">
                             SELECTED JOB ROLE
                         </span>
@@ -119,19 +83,15 @@
                         <h3 id="jobRoleTitle">
                             Full Stack Developer
                         </h3>
-
                     </div>
 
-                    <span
-                        class="description-badge"
-                        id="descriptionType"
-                    >
+                    <span class="description-badge" id="descriptionType">
                         Sample Description
                     </span>
 
                 </div>
 
-
+                <!-- Role Selector -->
                 <div class="role-selector">
 
                     <label for="jobRoleSelect">
@@ -144,10 +104,7 @@
                             Python Developer
                         </option>
 
-                        <option
-                            value="Full Stack Developer"
-                            selected
-                        >
+                        <option value="Full Stack Developer" selected>
                             Full Stack Developer
                         </option>
 
@@ -179,59 +136,54 @@
 
                 </div>
 
-
+                <!-- Dynamic Job Details -->
                 <div class="description-content">
 
                     <h4>About the Role</h4>
 
                     <p id="jobDescriptionText">
-                        A Full Stack Developer builds and maintains
-                        web applications by working on both frontend
-                        interfaces and backend services.
+                        Select a job from the results page to view
+                        its complete job description.
                     </p>
-
 
                     <h4>Key Responsibilities</h4>
 
                     <ul id="jobResponsibilities">
 
                         <li>
-                            Develop responsive user interfaces using
-                            HTML, CSS, and JavaScript.
-                        </li>
-
-                        <li>
-                            Build backend applications using Python
-                            and Django.
-                        </li>
-
-                        <li>
-                            Work with databases and REST APIs.
-                        </li>
-
-                        <li>
-                            Test, debug, and maintain web applications.
+                            Responsibilities will appear here
+                            when a job is selected.
                         </li>
 
                     </ul>
 
-
                     <h4>Required Skills</h4>
 
-                    <div
-                        class="required-skills"
-                        id="requiredSkills"
-                    >
+                    <div class="required-skills" id="requiredSkills">
 
-                        <span>Python</span>
-                        <span>HTML</span>
-                        <span>CSS</span>
-                        <span>JavaScript</span>
-                        <span>Django</span>
-                        <span>SQL</span>
-                        <span>REST APIs</span>
+                        <span>Skills will appear here</span>
 
                     </div>
+
+                    <!-- Experience Requirements -->
+                    <h4>Experience Requirements</h4>
+
+                    <p id="experienceDetails">
+                        Experience requirements will appear here.
+                    </p>
+
+                    <!-- Original Job Listing -->
+                    <h4>Original Job Listing</h4>
+
+                    <a
+                        id="originalJobLink"
+                        href="#"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        hidden
+                    >
+                        View Original Job Posting →
+                    </a>
 
                 </div>
 
@@ -239,16 +191,12 @@
 
         </section>
 
-
         <!-- Resume Upload Section -->
-
         <section class="resume-section">
 
             <div class="section-heading">
 
-                <div class="section-badge">
-                   
-                </div>
+                <div class="section-badge"></div>
 
                 <h2>Upload Your Resume</h2>
 
@@ -258,7 +206,6 @@
                 </p>
 
             </div>
-
 
             <form id="resumeUploadForm">
 
@@ -274,10 +221,7 @@
                         Choose a PDF or DOCX file from your device.
                     </p>
 
-                    <label
-                        for="resumeFile"
-                        class="upload-button"
-                    >
+                    <label for="resumeFile" class="upload-button">
                         Choose Resume
                     </label>
 
@@ -304,13 +248,11 @@
 
                 </div>
 
-
                 <p
                     class="form-message"
                     id="formMessage"
                     aria-live="polite"
                 ></p>
-
 
                 <button
                     type="submit"
@@ -324,9 +266,7 @@
 
         </section>
 
-
         <!-- Future Analysis Information -->
-
         <section class="analysis-info">
 
             <h3>What You'll Discover</h3>
@@ -345,7 +285,6 @@
 
                 </div>
 
-
                 <div class="analysis-info-card">
 
                     <span>↗</span>
@@ -357,7 +296,6 @@
                     </p>
 
                 </div>
-
 
                 <div class="analysis-info-card">
 
@@ -377,9 +315,8 @@
 
     </main>
 
-
+    <!-- JavaScript -->
     <script src="js/common.js"></script>
-
     <script src="js/job-details.js"></script>
 
 </body>

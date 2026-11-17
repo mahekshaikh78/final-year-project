@@ -20,7 +20,8 @@ const descriptionText = document.getElementById("jobDescriptionText");
 const responsibilitiesList = document.getElementById("jobResponsibilities");
 const requiredSkills = document.getElementById("requiredSkills");
 const descriptionType = document.getElementById("descriptionType");
-
+const experienceDetails = document.getElementById("experienceDetails");
+const originalJobLink = document.getElementById("originalJobLink");
 const resumeFile = document.getElementById("resumeFile");
 const selectedFileName = document.getElementById("selectedFileName");
 const resumeForm = document.getElementById("resumeUploadForm");
@@ -129,7 +130,9 @@ function extractSkills(description, suppliedSkills) {
    DISPLAY SELECTED JOB
 ========================= */
 
+
 function displayJobDetails(job) {
+
     if (!job) {
         return;
     }
@@ -137,10 +140,12 @@ function displayJobDetails(job) {
     const title = job.title || job.jobTitle || "Selected Job";
     const description = String(job.description || "").trim();
 
+    // Display job title
     if (roleTitle) {
         roleTitle.textContent = title;
     }
 
+    // Update role dropdown when a matching option exists
     if (roleSelect) {
         const matchingOption = Array.from(roleSelect.options).find(
             function (option) {
@@ -151,63 +156,120 @@ function displayJobDetails(job) {
             }
         );
 
-        // Do not change the live job title if the dropdown
-        // contains only general role categories.
         if (matchingOption) {
             roleSelect.value = matchingOption.value;
         }
     }
 
+    // Display complete job description
     if (descriptionText) {
         descriptionText.textContent = description ||
             "The source did not provide a full description for this listing. Please use the original job listing to review its details.";
     }
 
+    // Update description badge
     if (descriptionType) {
         descriptionType.textContent = description
             ? "Live Job Description"
             : "Description Unavailable";
     }
 
+    // Display responsibilities supplied by backend
     if (responsibilitiesList) {
         responsibilitiesList.replaceChildren();
 
-        const responsibilities = extractResponsibilities(description);
+        const responsibilities =
+            Array.isArray(job.responsibilities) &&
+            job.responsibilities.length > 0
+                ? job.responsibilities
+                : extractResponsibilities(description);
 
         if (responsibilities.length > 0) {
+
             responsibilities.forEach(function (item) {
                 const li = document.createElement("li");
                 li.textContent = item;
                 responsibilitiesList.appendChild(li);
             });
+
         } else {
+
             const li = document.createElement("li");
             li.textContent =
                 "Separate responsibilities could not be identified in the source description.";
             responsibilitiesList.appendChild(li);
+
         }
     }
 
+    // Display required skills supplied by backend
     if (requiredSkills) {
         requiredSkills.replaceChildren();
 
-        const skills = extractSkills(description, job.skills);
+        const skills = extractSkills(
+        description,
+        job.requiredSkills
+    );
 
         if (skills.length > 0) {
+
             skills.forEach(function (skill) {
                 const tag = document.createElement("span");
                 tag.textContent = skill;
                 requiredSkills.appendChild(tag);
             });
+
         } else {
+
             const message = document.createElement("p");
             message.textContent =
                 "Specific skills were not supplied separately by the job source.";
             requiredSkills.appendChild(message);
+
         }
     }
 
-    // Update the browser tab title for the selected listing.
+    // Display experience requirement
+    if (experienceDetails) {
+        experienceDetails.textContent =
+            job.experienceDetails ||
+            "Experience requirements are not clearly specified in the source description.";
+    }
+
+    // Display original job listing link
+    if (originalJobLink) {
+
+        const jobUrl =
+            job.job_url ||
+            job.jobUrl ||
+            job.url ||
+            job.link ||
+            "";
+
+        if (jobUrl) {
+            try {
+                const parsedUrl = new URL(jobUrl);
+
+                if (parsedUrl.protocol === "https:" ||
+                    parsedUrl.protocol === "http:") {
+
+                    originalJobLink.href = parsedUrl.href;
+                    originalJobLink.hidden = false;
+
+                } else {
+                    originalJobLink.hidden = true;
+                }
+
+            } catch (error) {
+                originalJobLink.hidden = true;
+            }
+
+        } else {
+            originalJobLink.hidden = true;
+        }
+    }
+
+    // Update browser tab title
     document.title = title + " | Job Details";
 
     if (formMessage) {

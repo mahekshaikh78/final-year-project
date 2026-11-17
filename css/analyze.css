@@ -1,28 +1,7 @@
-/* ===== Analyze Page ===== */
 
-.checkbox-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 10px;
-}
-
-.checkbox-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-}
-
-.checkbox-item input[type="checkbox"] {
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
-}
-
-[hidden] {
-    display: none !important;
-}
+/* ========================================
+   ANALYZE PAGE
+======================================== */
 
 .analyze-page {
     width: 100%;
@@ -30,7 +9,10 @@
     padding: 40px 24px 60px;
 }
 
-/* Hero heading */
+/* ========================================
+   HERO HEADING
+======================================== */
+
 .analyze-heading {
     position: relative;
     isolation: isolate;
@@ -49,12 +31,14 @@
     width: 420px;
     height: 240px;
     transform: translateX(-50%);
+
     background: radial-gradient(
         ellipse,
         rgba(139, 92, 246, 0.18),
         rgba(99, 102, 241, 0.06) 48%,
         transparent 72%
     );
+
     filter: blur(24px);
     pointer-events: none;
 }
@@ -63,12 +47,16 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+
     padding: 10px 16px;
     margin-bottom: 24px;
+
     border: 1px solid rgba(167, 139, 250, 0.35);
     border-radius: 50px;
+
     background: rgba(139, 92, 246, 0.10);
     color: #c4b5fd;
+
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 2px;
@@ -77,17 +65,25 @@
 .analyze-heading h1 {
     max-width: 700px;
     margin: 0 auto;
+
     color: #f8fafc;
+
     font-size: clamp(32px, 4vw, 56px);
     font-weight: 700;
     line-height: 1.15;
     letter-spacing: -1.5px;
-    text-wrap: balance;
 }
 
 .analyze-heading h1 span {
     display: inline-block;
-    background: linear-gradient(100deg, #c4b5fd, #a78bfa, #818cf8);
+
+    background: linear-gradient(
+        100deg,
+        #c4b5fd,
+        #a78bfa,
+        #818cf8
+    );
+
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -96,7 +92,9 @@
 .analyze-heading > p {
     max-width: 620px;
     margin: 20px auto 0;
+
     color: #a8b3c7;
+
     font-size: 16px;
     line-height: 1.8;
 }
@@ -104,127 +102,214 @@
 .analyze-heading > p::after {
     content: "";
     display: block;
+
     width: 56px;
     height: 3px;
     margin: 24px auto 0;
+
     border-radius: 10px;
-    background: linear-gradient(90deg, #8b5cf6, #6366f1);
+
+    background: linear-gradient(
+        90deg,
+        #8b5cf6,
+        #6366f1
+    );
 }
 
-/* Preferences card */
+/* ========================================
+   PREFERENCES CONTAINER
+======================================== */
+
 .analysis-container {
     display: block;
+
     width: 100%;
     max-width: 900px;
+
     margin: 0 auto;
 }
 
 .analysis-container .input-card {
     width: 100%;
-    max-width: none;
     box-sizing: border-box;
+
     padding: 32px;
-    border: 1px solid rgba(167, 139, 250, 0.18);
-    border-radius: 20px;
-    background: linear-gradient(145deg, #151b2b, #101522);
-    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.22);
+
+    border: 1px solid rgba(88, 93, 255, 0.65);
+    border-radius: 24px;
+
+    background: linear-gradient(
+        145deg,
+        rgba(13, 23, 48, 0.96),
+        rgba(8, 16, 34, 0.98)
+    );
+
+    box-shadow:
+        0 0 0 1px rgba(93, 76, 255, 0.12),
+        0 0 28px rgba(72, 65, 255, 0.12),
+        0 18px 45px rgba(0, 0, 0, 0.35),
+        0 0 65px rgba(89, 64, 255, 0.08);
+
+    transition:
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
 }
 
-/* Centered card title */
-.analysis-container .input-card-header {
+.analysis-container .input-card:hover {
+    border-color: rgba(112, 101, 255, 0.85);
+
+    box-shadow:
+        0 0 0 1px rgba(93, 76, 255, 0.18),
+        0 0 35px rgba(72, 65, 255, 0.18),
+        0 22px 50px rgba(0, 0, 0, 0.4),
+        0 0 75px rgba(89, 64, 255, 0.12);
+}
+
+/* ========================================
+   CARD HEADER
+======================================== */
+
+.input-card-header {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 14px;
-    margin-bottom: 28px;
+
+    margin-bottom: 30px;
     text-align: center;
 }
 
-.analysis-container .input-card-header h2 {
+.input-card-header h2 {
     margin: 0 0 8px;
+
     color: #f8fafc;
+
     font-size: 24px;
     font-weight: 700;
 }
 
-.analysis-container .input-card-header p {
+.input-card-header p {
     margin: 0;
+
     color: #a6b0c3;
+
     font-size: 14px;
     line-height: 1.6;
 }
 
-/* Two-column preferences form */
+/* ========================================
+   FORM GRID
+======================================== */
+
 #jobPreferencesForm {
     display: grid;
+
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 24px;
+    gap: 26px 30px;
+
     width: 100%;
     margin: 0;
+
     align-items: start;
 }
+
+/* Each form group */
 
 #jobPreferencesForm .form-group {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+
     width: 100%;
     min-width: 0;
+
+    gap: 10px;
     margin: 0;
 }
 
-#jobPreferencesForm .form-group:nth-of-type(1) {
+/* First row */
+
+#jobPreferencesForm .role-group {
     grid-column: 1;
     grid-row: 1;
 }
 
-#jobPreferencesForm .form-group:nth-of-type(2) {
+#jobPreferencesForm .platform-group {
     grid-column: 2;
     grid-row: 1;
 }
 
-#jobPreferencesForm .form-group:nth-of-type(3) {
+/* Second row */
+
+#jobPreferencesForm .location-group {
     grid-column: 1;
     grid-row: 2;
 }
 
-#jobPreferencesForm .form-group:nth-of-type(4) {
+#jobPreferencesForm .workmode-group {
     grid-column: 2;
     grid-row: 2;
 }
 
-/* Labels */
-#jobPreferencesForm .form-group label {
+/* Third row */
+
+#jobPreferencesForm .experience-group {
+    grid-column: 1 / -1;
+    grid-row: 3;
+}
+
+/* Fourth row */
+
+#jobPreferencesForm .country-group {
+    grid-column: 1;
+    grid-row: 4;
+}
+
+#jobPreferencesForm .skills-group {
+    grid-column: 2;
+    grid-row: 4;
+}
+
+/* ========================================
+   FORM LABELS
+======================================== */
+
+#jobPreferencesForm .form-group > label {
+    display: block;
+
     color: #e2e8f0;
+
     font-size: 14px;
     font-weight: 600;
     line-height: 1.5;
 }
 
-/* Dropdowns and skills field */
-#jobPreferencesForm .form-group select,
-#jobPreferencesForm .form-group textarea {
+/* ========================================
+   SELECT FIELDS
+======================================== */
+
+#jobPreferencesForm .form-group select {
     display: block;
+
     width: 100%;
     min-width: 0;
     min-height: 52px;
+
     box-sizing: border-box;
     padding: 13px 15px;
+
     border: 1px solid #30394e;
     border-radius: 11px;
-    background: #0c1220;
+
+    background-color: #0c1220;
     color: #f1f5f9;
+
     font-family: inherit;
     font-size: 14px;
-    line-height: 1.5;
-    outline: none;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
 
-#jobPreferencesForm .form-group textarea {
-    min-height: 110px;
-    min-width: 500px;
-    resize: vertical;
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
 #jobPreferencesForm .form-group select option {
@@ -232,51 +317,169 @@
     color: #f1f5f9;
 }
 
+#jobPreferencesForm .form-group select:hover {
+    border-color: #62538e;
+}
+
+#jobPreferencesForm .form-group select:focus {
+    border-color: #a78bfa;
+
+    box-shadow:
+        0 0 0 3px rgba(139, 92, 246, 0.14);
+}
+
+/* ========================================
+   CHECKBOX GROUPS
+======================================== */
+
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+
+    align-items: center;
+
+    gap: 14px 20px;
+    margin-top: 4px;
+}
+
+.checkbox-item {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 9px;
+
+    min-height: 34px;
+
+    color: #e2e8f0;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    cursor: pointer;
+}
+
+.checkbox-item input[type="checkbox"] {
+    flex-shrink: 0;
+
+    width: 17px;
+    height: 17px;
+
+    margin: 0;
+
+    accent-color: #8b5cf6;
+
+    cursor: pointer;
+}
+
+.checkbox-item span {
+    line-height: 1.5;
+}
+
+/* ========================================
+   PREFERRED SKILLS TEXTAREA
+======================================== */
+
+#jobPreferencesForm .form-group textarea {
+    display: block;
+
+    width: 100%;
+    min-width: 0;
+    min-height: 110px;
+
+    box-sizing: border-box;
+    padding: 13px 15px;
+
+    border: 1px solid #30394e;
+    border-radius: 11px;
+
+    background: #0c1220;
+    color: #f1f5f9;
+
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.6;
+
+    resize: vertical;
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
 #jobPreferencesForm .form-group textarea::placeholder {
     color: #8491a5;
 }
 
-#jobPreferencesForm .form-group small {
-    color: #9ca3af;
-    font-size: 12px;
-    line-height: 1.5;
-}
-
-#jobPreferencesForm .form-group select:hover,
 #jobPreferencesForm .form-group textarea:hover {
     border-color: #62538e;
 }
 
-#jobPreferencesForm .form-group select:focus,
 #jobPreferencesForm .form-group textarea:focus {
     border-color: #a78bfa;
-    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.14);
+
+    box-shadow:
+        0 0 0 3px rgba(139, 92, 246, 0.14);
 }
 
-/* Primary action */
+#jobPreferencesForm .form-group small {
+    color: #9ca3af;
+
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+/* ========================================
+   SUBMIT BUTTON
+======================================== */
+
 #jobPreferencesForm #fetchJobsButton {
     grid-column: 1 / -1;
-    grid-row: auto;
+    grid-row: 5;
+
     width: 100%;
     min-height: 54px;
+
     box-sizing: border-box;
+
     margin: 4px 0 0;
     padding: 15px 22px;
+
     border: none;
     border-radius: 12px;
-    background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+
+    background: linear-gradient(
+        135deg,
+        #8b5cf6,
+        #6d28d9
+    );
+
     color: #ffffff;
+
     font-family: inherit;
     font-size: 15px;
     font-weight: 700;
+
     cursor: pointer;
-    box-shadow: 0 6px 18px rgba(109, 40, 217, 0.22);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    box-shadow:
+        0 6px 18px rgba(109, 40, 217, 0.22);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
 #jobPreferencesForm #fetchJobsButton:hover {
-    background: linear-gradient(135deg, #9b6bff, #7c3aed);
-    box-shadow: 0 8px 22px rgba(109, 40, 217, 0.32);
+    background: linear-gradient(
+        135deg,
+        #9b6bff,
+        #7c3aed
+    );
+
+    box-shadow:
+        0 8px 22px rgba(109, 40, 217, 0.32);
+
     transform: translateY(-1px);
 }
 
@@ -285,27 +488,43 @@
     outline-offset: 3px;
 }
 
-/* Supporting message */
+#jobPreferencesForm #fetchJobsButton:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ========================================
+   SUPPORTING MESSAGE
+======================================== */
+
 .analyze-action {
     max-width: 900px;
+
     margin: 22px auto 0;
+
     text-align: center;
 }
 
 .analyze-action p {
     color: #9ca3af;
+
     font-size: 13px;
     line-height: 1.6;
 }
 
-/* Mobile layout */
-@media (max-width: 600px) {
+/* ========================================
+   MOBILE RESPONSIVENESS
+======================================== */
+
+@media (max-width: 650px) {
+
     .analyze-page {
         padding: 28px 16px 40px;
     }
 
     .analyze-heading {
-        padding: 28px 8px 0;
+        padding: 20px 8px 0;
         margin-bottom: 28px;
     }
 
@@ -320,22 +539,25 @@
 
     .analysis-container .input-card {
         padding: 24px 18px;
-        border-radius: 16px;
+        border-radius: 18px;
     }
 
-    .analysis-container .input-card-header h2 {
+    .input-card-header h2 {
         font-size: 21px;
     }
 
     #jobPreferencesForm {
         grid-template-columns: minmax(0, 1fr);
-        gap: 20px;
+        gap: 22px;
     }
 
-    #jobPreferencesForm .form-group:nth-of-type(1),
-    #jobPreferencesForm .form-group:nth-of-type(2),
-    #jobPreferencesForm .form-group:nth-of-type(3),
-    #jobPreferencesForm .form-group:nth-of-type(4) {
+    #jobPreferencesForm .role-group,
+    #jobPreferencesForm .platform-group,
+    #jobPreferencesForm .location-group,
+    #jobPreferencesForm .workmode-group,
+    #jobPreferencesForm .experience-group,
+    #jobPreferencesForm .country-group,
+    #jobPreferencesForm .skills-group {
         grid-column: 1;
         grid-row: auto;
     }
@@ -344,140 +566,79 @@
         grid-column: 1;
         grid-row: auto;
     }
+
+    .checkbox-group {
+        gap: 10px 18px;
+    }
+
 }
 
-/* Job Preferences card — soft purple-blue glow */
-.analysis-container .input-card {
-    background: linear-gradient(
-        145deg,
-        rgba(13, 23, 48, 0.96),
-        rgba(8, 16, 34, 0.98)
-    );
-    border: 1px solid rgba(88, 93, 255, 0.65);
-    border-radius: 24px;
+/* ========================================
+   SMALL MOBILE SCREENS
+======================================== */
 
-    /* Layered shadow matching the reference image */
-    box-shadow:
-        0 0 0 1px rgba(93, 76, 255, 0.12),
-        0 0 28px rgba(72, 65, 255, 0.12),
-        0 18px 45px rgba(0, 0, 0, 0.35),
-        0 0 65px rgba(89, 64, 255, 0.08);
+@media (max-width: 380px) {
 
-    padding: 32px;
-    transition: box-shadow 0.3s ease, border-color 0.3s ease;
-}
-
-/* Slightly stronger glow when hovering over the card */
-.analysis-container .input-card:hover {
-    border-color: rgba(112, 101, 255, 0.85);
-    box-shadow:
-        0 0 0 1px rgba(93, 76, 255, 0.18),
-        0 0 35px rgba(72, 65, 255, 0.18),
-        0 22px 50px rgba(0, 0, 0, 0.4),
-        0 0 75px rgba(89, 64, 255, 0.12);
-}
-
-/* Keep the card comfortable on smaller screens */
-@media (max-width: 600px) {
     .analysis-container .input-card {
-        padding: 22px 18px;
-        border-radius: 18px;
+        padding: 20px 14px;
+    }
+
+    .checkbox-group {
+        gap: 8px 14px;
+    }
+
+    .checkbox-item {
+        font-size: 13px;
+    }
+
+}
+
+
+/* ===== Final Analyze Page Layout Adjustments ===== */
+
+.analyze-page {
+    padding-top: 55px;
+}
+
+.analysis-container .input-card {
+    padding: 36px 40px;
+}
+
+#jobPreferencesForm {
+    row-gap: 30px;
+    column-gap: 36px;
+}
+
+#jobPreferencesForm .form-group textarea {
+    min-width: 0;
+    width: 100%;
+    min-height: 135px;
+}
+
+#jobPreferencesForm .checkbox-group {
+    gap: 14px 18px;
+}
+
+#jobPreferencesForm .checkbox-item {
+    gap: 9px;
+    white-space: nowrap;
+}
+
+#jobPreferencesForm #fetchJobsButton {
+    margin-top: 4px;
+}
+
+@media (max-width: 600px) {
+    .analyze-page {
+        padding: 35px 16px 40px;
+    }
+
+    .analysis-container .input-card {
+        padding: 24px 18px;
+    }
+
+    #jobPreferencesForm {
+        row-gap: 22px;
     }
 }
-/* Position the new Job Platform dropdown */
-#jobPreferencesForm .form-group:nth-of-type(5) {
-    grid-column: 1 / -1;
-    grid-row: auto;
-}
 
-/* Keep the submit button on its own full-width row */
-#jobPreferencesForm .primary-button {
-    grid-column: 1 / -1;
-}
-
-.custom-job-role-container {
-    margin-top: 12px;
-}
-
-.custom-job-role-container[hidden] {
-    display: none;
-}
-
-.custom-job-role-container label {
-    display: block;
-    margin-bottom: 8px;
-}
-
-.custom-job-role-container input {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 12px 14px;
-    border: 1px solid #49405f;
-    border-radius: 8px;
-    background-color: #171323;
-    color: #ffffff;
-    font: inherit;
-    outline: none;
-}
-
-.custom-job-role-container input:focus {
-    border-color: #a78bfa;
-}
-
-
-.platform-dropdown {
-    position: relative;
-    width: 100%;
-}
-
-.platform-dropdown-toggle {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    padding: 12px 14px;
-    background: white;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    cursor: pointer;
-    text-align: left;
-    font-size: 15px;
-    color: #333;
-}
-
-.platform-options {
-    position: absolute;
-    top: calc(100% + 4px);
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    padding: 8px;
-    background: white;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-}
-
-.platform-options[hidden] {
-    display: none;
-}
-
-.platform-options label,
-.checkbox-group label {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    padding: 8px;
-    cursor: pointer;
-}
-
-.platform-options label:hover {
-    background: #f3f3f3;
-}
-
-.platform-options input,
-.checkbox-group input {
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
-}

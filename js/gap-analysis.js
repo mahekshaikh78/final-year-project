@@ -19,6 +19,40 @@ const savedPreferences = readSessionJSON("jobPreferences", {});
 const ANALYSIS_WEBHOOK_URL =
     "https://n8n.bhuvisx.com/webhook/skillbridge-analyze";
 
+const COURSES_WEBHOOK_URL =
+    "https://n8n.bhuvisx.com/webhook/skillbridge-courses";
+
+
+async function fetchPersonalizedCourses(missingSkills) {
+    try {
+        const response = await fetch(COURSES_WEBHOOK_URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                missingSkills: missingSkills
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to fetch courses: " + response.status);
+        }
+
+        const data = await response.json();
+
+        if (!data.success || !Array.isArray(data.courses)) {
+            throw new Error("Invalid course data received from n8n.");
+        }
+
+        return data.courses;
+    } catch (error) {
+        console.error("Error fetching personalized courses:", error);
+        return [];
+    }
+}
+
+
 console.log("Total fetched jobs:", commonJobs.length);
 console.log("Fetched jobs:", commonJobs);
 
@@ -31,6 +65,7 @@ const commonJobCount = document.getElementById("commonJobCount");
 const commonJobSummary = document.getElementById("commonJobSummary");
 const commonResponsibilities = document.getElementById("commonResponsibilities");
 const commonRequiredSkills = document.getElementById("commonRequiredSkills");
+const additionalRequiredSkills = document.getElementById("additionalRequiredSkills");
 const commonJobMessage = document.getElementById("commonJobMessage");
 
 const targetJobRole = document.getElementById("targetJobRole");
@@ -70,6 +105,39 @@ function displaySkills(container, skills) {
     });
 }
 
+const skillDictionary = [
+    "Python", "Java", "JavaScript", "TypeScript",
+    "HTML", "CSS", "React", "Angular", "Vue",
+    "Django", "Flask", "FastAPI", "Node.js", "Express.js",
+    "SQL", "MySQL", "PostgreSQL", "MongoDB",
+    "REST API", "Git", "GitHub", "Bootstrap", "Tailwind CSS",
+    "Docker", "Kubernetes", "AWS", "Azure", "Google Cloud",
+    "Machine Learning", "Deep Learning", "Artificial Intelligence",
+    "Natural Language Processing",
+    "Pandas", "NumPy", "TensorFlow", "PyTorch",
+    "Data Structures", "Algorithms", "Object Oriented Programming",
+    "Problem Solving", "Communication", "Teamwork",
+    "Unit Testing", "Automation Testing", "Software Testing",
+    "CI/CD", "Linux", "Agile", "Debugging",
+    "API Integration", "Web Development", "JSON"
+];
+
+function getDetectedSkills(descriptions) {
+    return skillDictionary.filter(function (skill) {
+        let pattern;
+
+        if (skill === "Natural Language Processing") {
+            pattern = /\b(Natural Language Processing|NLP)\b/i;
+        } else {
+            const escaped = skill.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+            pattern = new RegExp("\\b" + escaped + "\\b", "i");
+        }
+
+        return descriptions.some(function (description) {
+            return pattern.test(description);
+        });
+    });
+}
 function setResultsVisible(visible) {
     if (skillAnalysisSection) {
         skillAnalysisSection.hidden = !visible;
@@ -144,25 +212,22 @@ function generateCommonJobDescription() {
         return;
     }
 
-    const skillDictionary = [
-        "Python", "Java", "JavaScript", "HTML", "CSS",
-        "React", "Django", "Flask", "FastAPI", "SQL",
-        "MySQL", "PostgreSQL", "REST APIs", "Git", "GitHub",
-        "Bootstrap", "Node.js", "Docker", "AWS", "Azure",
-        "Machine Learning", "Data Structures",
-        "Problem Solving", "Communication", "Testing"
-    ];
+    const allDetectedSkills = getDetectedSkills(descriptions);
 
-    const commonSkills = skillDictionary.filter(function (skill) {
-        const escaped = skill.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-        const pattern = new RegExp("\\b" + escaped + "\\b", "i");
+const commonSkills = allDetectedSkills.filter(function (skill) {
+    const escaped = skill.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const pattern = new RegExp("\\b" + escaped + "\\b", "i");
 
-        const count = descriptions.filter(function (description) {
-            return pattern.test(description);
-        }).length;
+    const count = descriptions.filter(function (description) {
+        return pattern.test(description);
+    }).length;
 
-        return count >= Math.ceil(descriptions.length / 2);
-    });
+    return count >= Math.ceil(descriptions.length / 2);
+});
+
+const additionalSkills = allDetectedSkills.filter(function (skill) {
+    return !commonSkills.includes(skill);
+});
 
     const allSentences = [];
 
@@ -214,6 +279,7 @@ function generateCommonJobDescription() {
     }
 
     displaySkills(commonRequiredSkills, commonSkills);
+    displaySkills(additionalRequiredSkills, additionalSkills);
 
     if (commonJobMessage) {
         commonJobMessage.textContent = commonSkills.length
@@ -257,28 +323,8 @@ function getRequiredSkills() {
         })
         .filter(Boolean);
 
-    const dictionary = [
-        "Python", "Java", "JavaScript", "HTML", "CSS",
-        "React", "Django", "Flask", "FastAPI", "SQL",
-        "MySQL", "PostgreSQL", "REST API", "Git", "GitHub",
-        "Bootstrap", "Node.js", "Docker", "AWS", "Azure",
-        "Machine Learning", "Data Structures",
-        "Problem Solving", "Communication", "Testing"
-    ];
-
-    return dictionary.filter(function (skill) {
-        const escaped = skill.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-        const pattern = new RegExp("\\b" + escaped + "\\b", "i");
-
-        const count = descriptions.filter(function (description) {
-            return pattern.test(description);
-        }).length;
-
-        return descriptions.length > 0 &&
-            count >= Math.ceil(descriptions.length / 2);
-    });
+    return getDetectedSkills(descriptions);
 }
-
 function getCommonJobDescriptionText() {
     return commonJobs
         .map(function (job) {
@@ -640,8 +686,7 @@ function getLearningResource(skill) {
             encodeURIComponent(skill + " official documentation tutorial")
     };
 }
-
-function renderPersonalizedCourses(missingSkills) {
+async function renderPersonalizedCourses(missingSkills) {
     const coursesContainer = document.getElementById("recommendedCourses");
     const filter = document.getElementById("courseSkillFilter");
     const emptyMessage = document.getElementById("noCoursesMessage");
@@ -664,64 +709,73 @@ function renderPersonalizedCourses(missingSkills) {
             .filter(Boolean)
     ));
 
-    uniqueSkills.forEach(function (skill) {
-        const option = document.createElement("option");
-        option.value = skill;
-        option.textContent = skill;
-        filter.appendChild(option);
+    
+const courses = await fetchPersonalizedCourses(uniqueSkills);
 
-        const resource = getLearningResource(skill);
-        const card = document.createElement("article");
-        card.className = "course-card";
-        card.dataset.skill = skill;
+courses.forEach(function (course) {
+    const skill = course.skill || uniqueSkills[0] || "General";
+    const card = document.createElement("article");
+    card.className = "course-card";
+    card.dataset.skill = skill;
 
-        const top = document.createElement("div");
-        top.className = "course-card-top";
+    const top = document.createElement("div");
+    top.className = "course-card-top";
 
-        const category = document.createElement("span");
-        category.className = "course-category";
-        category.textContent = resource.category;
+    const category = document.createElement("span");
+    category.className = "course-category";
+    category.textContent = course.platform || "Online Learning";
 
-        const level = document.createElement("span");
-        level.className = "course-level";
-        level.textContent = "Start here";
+    const level = document.createElement("span");
+    level.className = "course-level";
+    level.textContent = "Recommended";
 
-        top.append(category, level);
+    top.append(category, level);
 
-        const title = document.createElement("h3");
-        title.textContent = resource.title;
+    const title = document.createElement("h3");
+    title.textContent = course.title || "Untitled course";
 
-        const description = document.createElement("p");
-        description.textContent = resource.description;
+    const description = document.createElement("p");
+    description.textContent = course.description || "Explore this resource to learn the selected skill.";
 
-        const details = document.createElement("div");
-        details.className = "course-details";
+    const details = document.createElement("div");
+    details.className = "course-details";
 
-        const skillLabel = document.createElement("span");
-        skillLabel.textContent = "Skill: " + skill;
+    const skillLabel = document.createElement("span");
+    skillLabel.textContent = "Skill: " + skill;
 
-        const duration = document.createElement("span");
-        duration.textContent = "Suggested: " + resource.duration;
+    details.appendChild(skillLabel);
 
-        details.append(skillLabel, duration);
+    const link = document.createElement("a");
+    link.href = course.link;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.className = "course-link";
+    link.textContent = `Explore ${course.platform || "Course"} ↗`;
 
-        const link = document.createElement("a");
-        link.href = resource.url;
-        link.target = "_blank";
-        link.rel = "noopener noreferrer";
-        link.className = "course-link";
-        link.textContent = "Explore Learning Resource ↗";
+    card.append(top, title, description, details, link);
+    coursesContainer.appendChild(card);
+});
 
-        card.append(top, title, description, details, link);
-        coursesContainer.appendChild(card);
-    });
+uniqueSkills.forEach(function (skill) {
+    const option = document.createElement("option");
+    option.value = skill;
+    option.textContent = skill;
+    filter.appendChild(option);
+});
 
-    if (emptyMessage) {
-        emptyMessage.hidden = uniqueSkills.length !== 0;
-        emptyMessage.textContent = uniqueSkills.length
-            ? "No courses found for this skill."
-            : "Great! No missing skills were returned. Keep practising and building projects.";
+
+  
+if (emptyMessage) {
+    emptyMessage.hidden = courses.length !== 0;
+
+    if (uniqueSkills.length === 0) {
+        emptyMessage.textContent =
+            "Great! No missing skills were returned. Keep practising and building projects.";
+    } else {
+        emptyMessage.textContent =
+            "No courses found for these missing skills. Please try again later.";
     }
+}
 
     filter.onchange = function () {
         const selectedSkill = filter.value;

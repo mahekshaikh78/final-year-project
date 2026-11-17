@@ -260,10 +260,11 @@ if (savedPreferences) {
             savedPreferences.platform ||
             "";
 
-        selectedPlatform.textContent = platform
-            ? platform.charAt(0).toUpperCase() +
-              platform.slice(1).toLowerCase()
-            : "Not specified";
+        selectedPlatform.textContent = Array.isArray(platform)
+    ? platform.map(formatPlatformName).join(", ")
+    : platform
+        ? formatPlatformName(platform)
+        : "Not specified";
     }
 }
 
@@ -278,6 +279,62 @@ const returnedJobs =
         : [];
 
 let activeJob = null;
+
+
+/* =========================
+   EXTRACT SKILLS FROM JOB DESCRIPTION
+========================= */
+
+function extractJobSkills(description, suppliedSkills) {
+
+    const text = String(description || "");
+
+    // Use backend-required skills if available
+    if (Array.isArray(suppliedSkills) && suppliedSkills.length > 0) {
+        return suppliedSkills;
+    }
+
+    // Extract technical skills from the actual job description
+    const skillList = [
+        "Python", "Java", "JavaScript", "TypeScript",
+        "C", "C++", "C#", "Go", "Kotlin",
+        "HTML", "CSS", "React", "Angular", "Vue",
+        "Django", "Flask", "FastAPI", "Node.js",
+        "Express.js", "SQL", "MySQL", "PostgreSQL",
+        "MongoDB", "SQLite", "REST APIs", "REST API",
+        "Git", "GitHub", "Docker", "Kubernetes",
+        "AWS", "Azure", "GCP",
+        "Machine Learning", "Deep Learning",
+        "Natural Language Processing", "NLP",
+        "Pandas", "NumPy", "TensorFlow", "PyTorch",
+        "Data Structures", "Algorithms",
+        "OOP", "Object-Oriented Programming",
+        "Bootstrap", "Tailwind CSS",
+        "CI/CD", "Linux", "Agile",
+        "Unit Testing", "Automated Testing"
+    ];
+
+    const foundSkills = [];
+
+    skillList.forEach(function (skill) {
+
+        const escapedSkill = skill.replace(
+            /[.*+?^${}()|[\]\\]/g,
+            "\\$&"
+        );
+
+        const pattern = new RegExp(
+            "\\b" + escapedSkill + "\\b",
+            "i"
+        );
+
+        if (pattern.test(text)) {
+            foundSkills.push(skill);
+        }
+    });
+
+    return foundSkills;
+}
 
 
 /* =========================
@@ -418,16 +475,32 @@ if (fullDescription) {
 
 
             /* Skills */
-            const skillsContainer = document.createElement("div");
-            skillsContainer.className = "job-skills";
+            
+/* Skills extracted from the actual job description */
+const skillsContainer = document.createElement("div");
+skillsContainer.className = "job-skills";
 
-            const skills = Array.isArray(job.skills) ? job.skills : [];
+const skills = extractJobSkills(
+    job.description,
+    job.requiredSkills
+);
 
-            skills.forEach(function (skill) {
-                const tag = document.createElement("span");
-                tag.textContent = skill;
-                skillsContainer.appendChild(tag);
-            });
+if (skills.length > 0) {
+
+    skills.forEach(function (skill) {
+        const tag = document.createElement("span");
+        tag.textContent = skill;
+        skillsContainer.appendChild(tag);
+    });
+
+} else {
+
+    const noSkills = document.createElement("span");
+    noSkills.textContent = "No specific skills identified";
+    skillsContainer.appendChild(noSkills);
+
+}
+
 
             /* Actions */
             const actions = document.createElement("div");

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,7 +16,6 @@
 
     <!-- Navbar -->
     <nav class="navbar">
-
         <div class="logo">
             ✦ SkillBridge <span>AI</span>
         </div>
@@ -29,13 +29,13 @@
         <a href="index.html" class="nav-button">
             ← Back Home
         </a>
-
     </nav>
 
     <!-- Analyze Section -->
     <main class="analyze-page">
 
-        <div class="analyze-heading">
+        <!-- Heading -->
+        <section class="analyze-heading">
 
             <div class="section-badge">
                 ✦ AI CAREER MATCHING
@@ -52,177 +52,209 @@
                 opportunities and identify the skills you need.
             </p>
 
-        </div>
+        </section>
 
         <!-- Job Preferences -->
-        <div class="analysis-container">
+        <section class="analysis-container">
 
             <div class="input-card">
 
                 <div class="input-card-header">
-
-                    <!-- <div class="input-icon"></div> -->
-
                     <div>
                         <h2>Job Preferences</h2>
                         <p>Select the type of opportunity you're targeting.</p>
                     </div>
-
                 </div>
 
                 <form id="jobPreferencesForm">
 
-                    
-        <!-- Job Role -->
-        <div class="form-group">
-            <label for="jobRole">Preferred Job Role *</label>
+                    <!-- Job Role -->
+                    <div class="form-group role-group">
 
-            <select id="jobRole" name="jobRole" required>
-                <option value="">Select a job role</option>
-                <option value="Python Developer">Python Developer</option>
-                <option value="Full Stack Developer">Full Stack Developer</option>
-                <option value="Frontend Developer">Frontend Developer</option>
-                <option value="Backend Developer">Backend Developer</option>
-                <option value="Software Engineer">Software Engineer</option>
-                <option value="Data Analyst">Data Analyst</option>
-                <option value="AI ML Engineer">AI/ML Engineer</option>
-                <option value="Web Developer">Web Developer</option>
-                <option value="other">Other</option>
-            </select>
+                        <label for="jobRole">Preferred Job Role *</label>
 
-        </div>
-        <div class="form-group" id="customRoleGroup" hidden>
-            <label for="customJobRole">Enter your preferred job role</label>
-            <input type="text" id="customJobRole"
-                placeholder="Example: Java Developer">
-        </div>
+                        <select id="jobRole" name="jobRole" required>
+                            <option value="">Select a job role</option>
+                            <option value="Python Developer">Python Developer</option>
+                            <option value="Full Stack Developer">Full Stack Developer</option>
+                            <option value="Frontend Developer">Frontend Developer</option>
+                            <option value="Backend Developer">Backend Developer</option>
+                            <option value="Software Engineer">Software Engineer</option>
+                            <option value="Data Analyst">Data Analyst</option>
+                            <option value="AI ML Engineer">AI/ML Engineer</option>
+                            <option value="Web Developer">Web Developer</option>
+                            <option value="other">Other</option>
+                        </select>
 
-        <!-- Job Platform -->
+                    </div>
 
-        <div class="form-group">
-            <label for="jobPlatform">Preferred Job Platform *</label>
+                    <!-- Job Platform -->
+                    <div class="form-group platform-group">
 
-            <div class="checkbox-group" id="platformGroup">
-            <label class="checkbox-item">
-            <input type="checkbox" name="jobPlatform" value="LinkedIn">
-            LinkedIn
-            </label>
-            <label class="checkbox-item">
-            <input type="checkbox" name="jobPlatform" value="Naukri">
-            Naukri.com
-            </label>
-            <label class="checkbox-item">
-                <input type="checkbox" name="jobPlatform" value="Indeed">
-                Indeed
-            </label>
-            
-        </div>
-        </div>
+                        <label>Preferred Job Platform *</label>
 
-       
+                        <div class="checkbox-group" id="platformGroup">
 
-        <!-- Location -->
-        <div class="form-group">
-            <label for="jobLocation">Preferred Location *</label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="jobPlatform" value="LinkedIn">
+                                <span>LinkedIn</span>
+                            </label>
 
-            <div class="checkbox-group" id="locationGroup">
-            <label class="checkbox-item">
-                <input type="checkbox" name="jobLocation" value="Pune"> Pune
-            </label>
-            <label class="checkbox-item">
-                <input type="checkbox" name="jobLocation" value="Mumbai"> Mumbai
-            </label>
-            <label class="checkbox-item">
-                <input type="checkbox" name="jobLocation" value="Bengaluru"> Bengaluru
-            </label>
-            <label class="checkbox-item">
-                <input type="checkbox" name="jobLocation" value="Hyderabad"> Hyderabad
-            </label>
-            <label class="checkbox-item">
-                <input type="checkbox" name="jobLocation" value="Chennai"> Chennai
-            </label>
-            <label class="checkbox-item">
-                <input type="checkbox" name="jobLocation" value="Delhi NCR"> Delhi NCR
-            </label>
-            <label class="checkbox-item">
-                <input type="checkbox" name="jobLocation" value="Any Location"> Any Location
-            </label>
-        </div>
-        </div>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="jobPlatform" value="Naukri">
+                                <span>Naukri.com</span>
+                            </label>
 
-        <!-- Work Mode -->
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="jobPlatform" value="Indeed">
+                                <span>Indeed</span>
+                            </label>
 
-        <div class="form-group">
-            <label>Work Mode *</label>
-            <div class="checkbox-group" id="workModeGroup">
-                <label class="checkbox-item">
-                    <input type="checkbox" name="workMode" value="Remote"> Remote
-                </label>
-                <label class="checkbox-item">
-                    <input type="checkbox" name="workMode" value="On-site"> On-site
-                </label>
-                <label class="checkbox-item">
-                    <input type="checkbox" name="workMode" value="Hybrid"> Hybrid
-                </label>
-            </div>
-        </div>
+                        </div>
 
-        <!-- Experience Level -->
+                    </div>
 
-        <div class="form-group">
-        <label for="experienceLevel">Experience Level *</label>
+                    <!-- Location -->
+                    <div class="form-group location-group">
 
-            <select id="experienceLevel" name="experienceLevel" required>
-                <option value="">Select experience level</option>
-                <option value="0-3 years">0–3 years</option>
-                <option value="3-5 years">3–5 years</option>
-                <option value="5-7 years">5–7 years</option>
-            </select>
-        </div>
-         <!-- Country -->
+                        <label>Preferred Location *</label>
 
-        <div class="form-group">
-            <label for="jobCountry">Country</label>
-            <select id="jobCountry" name="jobCountry" required>
-                <option value="India" selected>India</option>
-                <option value="United States">United States</option>
-                <option value="United Kingdom">United Kingdom</option>
-                <option value="Canada">Canada</option>
-                <option value="Australia">Australia</option>
-            </select>
-        </div>
-        <!-- Skills -->
+                        <div class="checkbox-group" id="locationGroup">
 
-        <div class="form-group">
-            <label for="preferredSkills">Preferred Skills *</label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="jobLocation" value="Pune">
+                                <span>Pune</span>
+                            </label>
 
-            <textarea
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="jobLocation" value="Mumbai">
+                                <span>Mumbai</span>
+                            </label>
+
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="jobLocation" value="Bengaluru">
+                                <span>Bengaluru</span>
+                            </label>
+
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="jobLocation" value="Hyderabad">
+                                <span>Hyderabad</span>
+                            </label>
+
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="jobLocation" value="Chennai">
+                                <span>Chennai</span>
+                            </label>
+
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="jobLocation" value="Delhi NCR">
+                                <span>Delhi NCR</span>
+                            </label>
+
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="jobLocation" value="Any Location">
+                                <span>Any Location</span>
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Work Mode -->
+                    <div class="form-group workmode-group">
+
+                        <label>Work Mode *</label>
+
+                        <div class="checkbox-group" id="workModeGroup">
+
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="workMode" value="Remote">
+                                <span>Remote</span>
+                            </label>
+
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="workMode" value="On-site">
+                                <span>On-site</span>
+                            </label>
+
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="workMode" value="Hybrid">
+                                <span>Hybrid</span>
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Experience Level -->
+                    <div class="form-group experience-group">
+
+                        <label for="experienceLevel">Experience Level *</label>
+
+                        <select id="experienceLevel" name="experienceLevel" required>
+
+                            <option value="">Select experience level</option>
+                            <option value="Freshers">Freshers</option>
+                            <option value="1-3 years">1–3 years</option>
+                            <option value="3-5 years">3–5 years</option>
+                            <option value="5-7 years">5–7 years</option>
+
+                        </select>
+
+                    </div>
+
+                    <!-- Country -->
+                    <div class="form-group country-group">
+
+                        <label for="jobCountry">Country</label>
+
+                        <select id="jobCountry" name="jobCountry" required>
+
+                            <option value="India" selected>India</option>
+                            <option value="United States">United States</option>
+                            <option value="United Kingdom">United Kingdom</option>
+                            <option value="Canada">Canada</option>
+                            <option value="Australia">Australia</option>
+
+                        </select>
+
+                    </div>
+
+                    <!-- Preferred Skills -->
+                    <div class="form-group skills-group">
+
+                        <label for="preferredSkills">Preferred Skills *</label>
+
+                        <textarea
                             id="preferredSkills"
                             name="preferredSkills"
                             placeholder="Example: Python, Django, SQL, HTML, CSS"
                             maxlength="500"
                             required
-            ></textarea>
+                        ></textarea>
 
-            <small>
+                        <small>
                             Separate skills with commas.
-            </small>
-        </div>
+                        </small>
 
-        <button
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button
                         type="submit"
                         class="primary-button"
                         id="fetchJobsButton"
                     >
                         Find Matching Jobs →
-        </button>
+                    </button>
 
-    </form>
+                </form>
 
-</div>
+            </div>
 
-</div>
+        </section>
 
+        <!-- Supporting Message -->
         <div class="analyze-action">
             <p>
                 ✦ Your preferences help us find more relevant opportunities.
